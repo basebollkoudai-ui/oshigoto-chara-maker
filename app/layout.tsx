@@ -24,6 +24,28 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+  openGraph: {
+    title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
+    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
+    url: 'https://oshigoto-chara-maker.vercel.app',
+    siteName: 'お仕事キャラメーカー',
+    images: [
+      {
+        url: '/mv.png',
+        width: 1472,
+        height: 704,
+        alt: 'お仕事キャラメーカー - 全16キャラクター',
+      },
+    ],
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
+    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
+    images: ['/mv.png'],
+  },
 }
 
 export default function RootLayout({
