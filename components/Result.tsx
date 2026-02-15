@@ -122,12 +122,13 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
   }
 
   const handleTwitterShare = () => {
-    const imageUrl = `${window.location.origin}/api/og-image?code=${encodeURIComponent(
+    const diagnosticUrl = window.location.origin
+    const imageUrl = `${diagnosticUrl}/api/og-image?code=${encodeURIComponent(
       character.code
     )}&name=${encodeURIComponent(character.name)}&subtitle=${encodeURIComponent(
       character.subtitle
     )}&icon=${encodeURIComponent(character.icon)}`
-    const text = `私の仕事モンスター診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#仕事モンスター診断\n\n${imageUrl}`
+    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\nあなたも診断してみよう👇\n${diagnosticUrl}\n\n${imageUrl}`
     const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`
     window.open(url, '_blank')
   }
@@ -158,37 +159,38 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
   }
 
   const handleShareWithImage = async () => {
-    const imageUrl = `${window.location.origin}/api/og-image?code=${encodeURIComponent(
+    const diagnosticUrl = window.location.origin
+    const imageUrl = `${diagnosticUrl}/api/og-image?code=${encodeURIComponent(
       character.code
     )}&name=${encodeURIComponent(character.name)}&subtitle=${encodeURIComponent(
       character.subtitle
     )}&icon=${encodeURIComponent(character.icon)}`
-    const text = `私の仕事モンスター診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#仕事モンスター診断`
+    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\nあなたも診断してみよう👇\n${diagnosticUrl}`
 
     if (navigator.share) {
       try {
         // Try to fetch and share the image
         const response = await fetch(imageUrl)
         const blob = await response.blob()
-        const file = new File([blob], `work-monster-${character.code}.png`, {
+        const file = new File([blob], `oshigoto-chara-${character.code}.png`, {
           type: 'image/png',
         })
 
         await navigator.share({
-          title: '仕事モンスター診断',
+          title: 'お仕事キャラメーカー',
           text: text,
           files: [file],
         })
       } catch (error) {
         // Fallback to text-only share
         navigator.share({
-          title: '仕事モンスター診断',
+          title: 'お仕事キャラメーカー',
           text: text,
-          url: window.location.href,
+          url: diagnosticUrl,
         })
       }
     } else {
-      // Fallback: copy image URL to clipboard
+      // Fallback: copy to clipboard
       navigator.clipboard.writeText(`${text}\n\n結果画像: ${imageUrl}`)
       alert('結果をクリップボードにコピーしました！')
     }

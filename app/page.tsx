@@ -26,77 +26,42 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">{/* MV Section - Character Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
-            className="mb-8 px-4 flex justify-center"
-          >
+        <div className="text-center mb-12">
+          <div className="mb-8 px-4 flex justify-center">
             <Image
               src="/mv.png"
               alt="お仕事キャラメーカー - 全16キャラクター"
-              width={800}
-              height={400}
+              width={1472}
+              height={704}
               className="rounded-3xl shadow-pop-lg max-w-full h-auto"
               priority
             />
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-rounded font-extrabold mb-4 leading-tight px-2"
-          >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-rounded font-extrabold mb-4 leading-tight px-2">
             <span className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent drop-shadow-lg">
               お仕事キャラメーカー
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-lg sm:text-xl md:text-2xl font-rounded font-bold text-gray-800 mb-2 drop-shadow-sm px-2"
-          >
+          <p className="text-lg sm:text-xl md:text-2xl font-rounded font-bold text-gray-800 mb-2 drop-shadow-sm px-2">
             あなたに合った仕事を見つけよう
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-            className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2"
-          >
+          <div className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2">
             <p className="text-gray-700 font-medium text-sm sm:text-base">
               <span className="text-xl sm:text-2xl mr-2">🎭</span>
               16種類のお仕事キャラクターから診断
             </p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Main Content Card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="max-w-2xl mx-auto"
-        >
+        <div className="max-w-2xl mx-auto">
           <div className="bg-white/90 backdrop-blur-md rounded-3xl md:rounded-4xl shadow-pop-lg p-6 sm:p-8 md:p-12 border-2 border-white/50">
 
             {/* Introduction */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="mb-8"
-            >
+            <div className="mb-8">
               <div className="gradient-pastel-purple rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 space-y-3 md:space-y-4 border-2 border-primary-200 border-opacity-30 shadow-pop">
                 <p className="text-gray-800 font-rounded font-bold text-lg sm:text-xl">
                   あなたに合った仕事を見つけよう 💭
@@ -122,7 +87,7 @@ export default function Home() {
                   素直な気持ちで答えていただくと、より正確な診断結果が得られます 💫
                 </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Start Button */}
             <button
@@ -135,16 +100,11 @@ export default function Home() {
             </button>
 
             {/* Footer */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.0 }}
-              className="text-center text-gray-500 text-xs sm:text-sm mt-4 sm:mt-6"
-            >
+            <p className="text-center text-gray-500 text-xs sm:text-sm mt-4 sm:mt-6">
               ※ この診断結果はエンターテイメント目的です
-            </motion.p>
+            </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   )
