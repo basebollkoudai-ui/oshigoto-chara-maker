@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: 'お仕事キャラメーカー',
     images: [
       {
-        url: '/mv.png',
+        url: 'https://oshigoto-chara-maker.vercel.app/mv.png',
         width: 1472,
         height: 704,
         alt: 'お仕事キャラメーカー - 全16キャラクター',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
     description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
-    images: ['/mv.png'],
+    images: ['https://oshigoto-chara-maker.vercel.app/mv.png'],
   },
 }
 

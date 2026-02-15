@@ -107,26 +107,18 @@ const QuestionCard = ({
               <motion.button
                 key={index}
                 variants={itemVariants}
-                whileHover={{
-                  scale: 1.03,
-                  y: -4,
-                  boxShadow: "0 12px 24px rgba(0, 0, 0, 0.12)"
-                }}
-                whileTap={{ scale: 0.97 }}
                 onClick={() => onAnswer(option.scores, option.text)}
-                className={`w-full text-left p-4 sm:p-5 md:p-6 lg:p-7 ${gradients[index % 4]} hover:bg-opacity-80 border-2 border-${accentColors[index % 4]} border-opacity-20 rounded-2xl sm:rounded-3xl transition-all duration-300 group shadow-pop hover:shadow-pop-lg`}
+                className={`w-full text-left p-4 sm:p-5 md:p-6 lg:p-7 ${gradients[index % 4]} border-2 border-${accentColors[index % 4]} border-opacity-20 rounded-2xl sm:rounded-3xl group shadow-pop`}
               >
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
+                  <div
                     className={`flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white border-3 border-${accentColors[index % 4]} flex items-center justify-center shadow-sm`}
                   >
                     <span className={`text-${accentColors[index % 4]} font-rounded font-extrabold text-base sm:text-lg`}>
                       {String.fromCharCode(65 + index)}
                     </span>
-                  </motion.div>
-                  <p className="text-gray-800 group-hover:text-gray-900 leading-relaxed flex-1 font-medium text-sm sm:text-base">
+                  </div>
+                  <p className="text-gray-800 leading-relaxed flex-1 font-medium text-sm sm:text-base">
                     {option.text}
                   </p>
                 </div>
