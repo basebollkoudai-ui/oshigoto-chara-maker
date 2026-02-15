@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-rounded: 'M PLUS Rounded 1c', sans-serif;
+  --font-noto: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  font-family: var(--font-noto);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-rounded {
+  font-family: var(--font-rounded) !important;
+}
+
+.font-noto {
+  font-family: var(--font-noto) !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Tapple風のグラデーション */
+  .gradient-pastel-pink {
+    background: linear-gradient(135deg, #FFE5F1 0%, #FFB6D9 100%);
+  }
+
+  .gradient-pastel-blue {
+    background: linear-gradient(135deg, #E0F4FF 0%, #A8D8FF 100%);
+  }
+
+  .gradient-pastel-purple {
+    background: linear-gradient(135deg, #F3EAFF 0%, #D4C5F9 100%);
+  }
+
+  .gradient-pastel-yellow {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FFF4B8 100%);
+  }
+
+  .gradient-pastel-mint {
+    background: linear-gradient(135deg, #ECFDF5 0%, #C1F0DC 100%);
+  }
+
+  .gradient-pastel-peach {
+    background: linear-gradient(135deg, #FFF1ED 0%, #FFD4C4 100%);
+  }
+
+  /* ポップなシャドウ */
+  .shadow-pop {
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-pop-lg {
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.12);
+  }
+}

@@ -1,0 +1,151 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Flame, ArrowRight } from 'lucide-react'
+import Quiz from '@/components/Quiz'
+import Image from 'next/image'
+
+export default function Home() {
+  const [started, setStarted] = useState(false)
+
+  if (started) {
+    return <Quiz />
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pastel-pink via-pastel-purple to-pastel-blue relative overflow-hidden">
+      {/* 背景の装飾 */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-5 md:left-10 w-24 h-24 md:w-32 md:h-32 bg-pastel-yellow rounded-full opacity-50 blur-3xl animate-float"></div>
+        <div className="absolute top-40 right-5 md:right-20 w-32 h-32 md:w-40 md:h-40 bg-pastel-mint rounded-full opacity-50 blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/3 w-28 h-28 md:w-36 md:h-36 bg-pastel-peach rounded-full opacity-50 blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-10 right-5 md:right-10 w-20 h-20 md:w-28 md:h-28 bg-pastel-blue rounded-full opacity-50 blur-3xl animate-float" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute top-1/2 left-5 md:left-20 w-20 h-20 md:w-24 md:h-24 bg-accent-pink rounded-full opacity-30 blur-2xl animate-pulse-soft"></div>
+        <div className="absolute top-1/3 right-1/3 w-24 h-24 md:w-32 md:h-32 bg-primary-300 rounded-full opacity-30 blur-2xl animate-pulse-soft" style={{ animationDelay: '1.5s' }}></div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">{/* MV Section - Character Showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
+            className="mb-8 px-4 flex justify-center"
+          >
+            <Image
+              src="/mv.png"
+              alt="お仕事キャラメーカー - 全16キャラクター"
+              width={800}
+              height={400}
+              className="rounded-3xl shadow-pop-lg max-w-full h-auto"
+              priority
+            />
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-rounded font-extrabold mb-4 leading-tight px-2"
+          >
+            <span className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent drop-shadow-lg">
+              お仕事キャラメーカー
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-lg sm:text-xl md:text-2xl font-rounded font-bold text-gray-800 mb-2 drop-shadow-sm px-2"
+          >
+            あなたに合った仕事を見つけよう
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+            className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2"
+          >
+            <p className="text-gray-700 font-medium text-sm sm:text-base">
+              <span className="text-xl sm:text-2xl mr-2">🎭</span>
+              16種類のお仕事キャラクターから診断
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Main Content Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="max-w-2xl mx-auto"
+        >
+          <div className="bg-white/90 backdrop-blur-md rounded-3xl md:rounded-4xl shadow-pop-lg p-6 sm:p-8 md:p-12 border-2 border-white/50">
+
+            {/* Introduction */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="mb-8"
+            >
+              <div className="gradient-pastel-purple rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 space-y-3 md:space-y-4 border-2 border-primary-200 border-opacity-30 shadow-pop">
+                <p className="text-gray-800 font-rounded font-bold text-lg sm:text-xl">
+                  あなたに合った仕事を見つけよう 💭
+                </p>
+                <p className="text-gray-700 leading-relaxed font-medium text-sm sm:text-base">
+                  簡単な質問に答えるだけで、あなたの働き方の特徴から、16種類のお仕事キャラクターの中からぴったりのタイプを診断します。
+                </p>
+                <div className="space-y-2 md:space-y-3 text-gray-700 text-sm sm:text-base">
+                  <p className="flex items-center font-medium">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent-pink rounded-full mr-2 sm:mr-3 shadow-sm flex-shrink-0"></span>
+                    質問は全20問
+                  </p>
+                  <p className="flex items-center font-medium">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent-blue rounded-full mr-2 sm:mr-3 shadow-sm flex-shrink-0"></span>
+                    所要時間: 約3分
+                  </p>
+                  <p className="flex items-center font-medium">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent-yellow rounded-full mr-2 sm:mr-3 shadow-sm flex-shrink-0"></span>
+                    直感で答えてみてください
+                  </p>
+                </div>
+                <p className="text-gray-600 text-xs sm:text-sm italic mt-3 md:mt-4 bg-white bg-opacity-60 rounded-xl md:rounded-2xl p-2.5 sm:p-3">
+                  素直な気持ちで答えていただくと、より正確な診断結果が得られます 💫
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Start Button */}
+            <button
+              onClick={() => setStarted(true)}
+              className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20 hover:scale-105 active:scale-95"
+            >
+              <span className="text-2xl sm:text-3xl">🚀</span>
+              診断を始める
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+
+            {/* Footer */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0 }}
+              className="text-center text-gray-500 text-xs sm:text-sm mt-4 sm:mt-6"
+            >
+              ※ この診断結果はエンターテイメント目的です
+            </motion.p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  )
+}

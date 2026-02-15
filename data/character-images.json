@@ -1,0 +1,20 @@
+{
+  "imageMapping": {
+    "IGYS": "character-01.png",
+    "IGYC": "character-02.png",
+    "IGAS": "character-03.png",
+    "IGAC": "character-04.png",
+    "ITYS": "character-05.png",
+    "ITYC": "character-06.png",
+    "ITAS": "character-07.png",
+    "ITAC": "character-08.png",
+    "SGYS": "character-09.png",
+    "SGYC": "character-10.png",
+    "SGAS": "character-11.png",
+    "SGAC": "character-12.png",
+    "STYS": "character-13.png",
+    "STYC": "character-14.png",
+    "STAS": "character-15.png",
+    "STAC": "character-16.png"
+  }
+}

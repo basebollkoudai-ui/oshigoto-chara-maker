@@ -1,0 +1,474 @@
+{
+  "axes": {
+    "actionStyle": {
+      "name": "行動力軸",
+      "positive": "I",
+      "positiveLabel": "猪突型（とりあえず動く）",
+      "negative": "S",
+      "negativeLabel": "石橋型（慎重派）"
+    },
+    "socialStyle": {
+      "name": "人間関係軸",
+      "positive": "G",
+      "positiveLabel": "群れ型（チーム好き）",
+      "negative": "T",
+      "negativeLabel": "単独型（一匹狼）"
+    },
+    "motivation": {
+      "name": "モチベーション軸",
+      "positive": "Y",
+      "positiveLabel": "野心型（出世志向）",
+      "negative": "A",
+      "negativeLabel": "安定型（平穏志向）"
+    },
+    "thinking": {
+      "name": "仕事観軸",
+      "positive": "SE",
+      "positiveLabel": "戦略型（計画的）",
+      "negative": "CH",
+      "negativeLabel": "直感型（ノリとセンス）"
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "新しいプロジェクトが始まった。あなたの最初の行動は？",
+      "options": [
+        {
+          "text": "とりあえず手を動かしてみる。考えるより動け！",
+          "scores": {"actionStyle": 2, "thinking": -1}
+        },
+        {
+          "text": "まずは詳細な計画書を作成する",
+          "scores": {"actionStyle": -2, "thinking": 2}
+        },
+        {
+          "text": "チームメンバーと飲みに行って方針を話し合う",
+          "scores": {"actionStyle": 1, "socialStyle": 2, "thinking": -1}
+        },
+        {
+          "text": "類似プロジェクトの事例を一人で調べまくる",
+          "scores": {"actionStyle": -1, "socialStyle": -2, "thinking": 1}
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "上司から「無理めな案件」を振られた。どうする？",
+      "options": [
+        {
+          "text": "「やります！」即答。やり方は後で考える",
+          "scores": {"actionStyle": 2, "motivation": 1}
+        },
+        {
+          "text": "リスクと必要リソースを詳細に説明して交渉",
+          "scores": {"actionStyle": -1, "thinking": 2, "motivation": 1}
+        },
+        {
+          "text": "「ちょっと厳しいですね...」と断る方向で調整",
+          "scores": {"actionStyle": -2, "motivation": -2}
+        },
+        {
+          "text": "とりあえず引き受けて、こっそり同僚に助けを求める",
+          "scores": {"actionStyle": 1, "socialStyle": 1, "thinking": -1}
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "金曜夜、急な飲み会のお誘い。あなたは？",
+      "options": [
+        {
+          "text": "「行きます！」即決。人脈は財産だ",
+          "scores": {"socialStyle": 2, "actionStyle": 1}
+        },
+        {
+          "text": "メンバーと目的を確認してから判断",
+          "scores": {"thinking": 1, "socialStyle": -1}
+        },
+        {
+          "text": "「すみません、予定が...」と丁重にお断り",
+          "scores": {"socialStyle": -2, "motivation": -1}
+        },
+        {
+          "text": "渋々参加するが、1時間で帰る算段を立てる",
+          "scores": {"socialStyle": -1, "thinking": 1, "motivation": -1}
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "あなたの理想の働き方は？",
+      "options": [
+        {
+          "text": "バリバリ成果出して昇進・年収アップ！",
+          "scores": {"motivation": 2, "actionStyle": 1}
+        },
+        {
+          "text": "定時で帰って趣味を楽しむ。仕事は生活の手段",
+          "scores": {"motivation": -2, "actionStyle": -1}
+        },
+        {
+          "text": "チームで協力して、みんなで成長したい",
+          "scores": {"socialStyle": 2, "motivation": 0}
+        },
+        {
+          "text": "自分のスキルを磨いて、市場価値を高める",
+          "scores": {"socialStyle": -1, "motivation": 1, "thinking": 1}
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "question": "締め切り前日、タスクが終わらない！どうする？",
+      "options": [
+        {
+          "text": "徹夜で気合で終わらせる。寝なければいける",
+          "scores": {"actionStyle": 2, "thinking": -2, "motivation": 1}
+        },
+        {
+          "text": "チームに助けを求めて、分担して乗り切る",
+          "scores": {"socialStyle": 2, "thinking": 1}
+        },
+        {
+          "text": "上司に状況報告して期限延長を交渉",
+          "scores": {"thinking": 2, "actionStyle": -1, "motivation": -1}
+        },
+        {
+          "text": "出せる範囲で出す。完璧主義は捨てる",
+          "scores": {"actionStyle": 1, "thinking": -1, "motivation": -1}
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "ランチタイム、あなたはどう過ごす？",
+      "options": [
+        {
+          "text": "同僚と社食でワイワイ。情報交換も兼ねて",
+          "scores": {"socialStyle": 2}
+        },
+        {
+          "text": "一人で好きな店に行く。至福の時間",
+          "scores": {"socialStyle": -2, "motivation": -1}
+        },
+        {
+          "text": "デスクでサクッと食べて仕事を進める",
+          "scores": {"socialStyle": -1, "actionStyle": 1, "motivation": 1}
+        },
+        {
+          "text": "カフェで読書や勉強。自己投資の時間",
+          "scores": {"socialStyle": -1, "thinking": 1, "motivation": 1}
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "会議中、明らかに間違った意見が出た。あなたは？",
+      "options": [
+        {
+          "text": "即座に「それ違いますよ」と指摘する",
+          "scores": {"actionStyle": 2, "socialStyle": -1, "thinking": 1}
+        },
+        {
+          "text": "空気を読んでスルー。波風立てたくない",
+          "scores": {"actionStyle": -2, "socialStyle": 1, "motivation": -1}
+        },
+        {
+          "text": "データを示して論理的に別案を提示",
+          "scores": {"thinking": 2, "motivation": 1}
+        },
+        {
+          "text": "会議後にそっと個別で伝える",
+          "scores": {"socialStyle": 1, "thinking": 1, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "転職サイトからスカウトが来た。今より年収50万アップ。どうする？",
+      "options": [
+        {
+          "text": "即面接予約。チャンスは逃さない",
+          "scores": {"actionStyle": 2, "motivation": 2, "socialStyle": -1}
+        },
+        {
+          "text": "詳細に条件を比較検討してから判断",
+          "scores": {"thinking": 2, "actionStyle": -1}
+        },
+        {
+          "text": "今の会社に恩があるし、無視する",
+          "scores": {"socialStyle": 1, "motivation": -2, "actionStyle": -1}
+        },
+        {
+          "text": "とりあえず話だけ聞きに行く。情報収集は大事",
+          "scores": {"actionStyle": 1, "thinking": 1, "motivation": 1}
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "部下の育成を任された。あなたのスタイルは？",
+      "options": [
+        {
+          "text": "「とりあえずやってみろ！」実践型教育",
+          "scores": {"actionStyle": 2, "thinking": -1}
+        },
+        {
+          "text": "詳細なマニュアルと研修計画を作成",
+          "scores": {"thinking": 2, "actionStyle": -1, "socialStyle": 1}
+        },
+        {
+          "text": "飲みに連れて行って、経験談を語る",
+          "scores": {"socialStyle": 2, "thinking": -2}
+        },
+        {
+          "text": "「資料送るから各自で勉強して」放置型",
+          "scores": {"socialStyle": -2, "motivation": -1, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "大型連休の過ごし方、理想は？",
+      "options": [
+        {
+          "text": "海外旅行！アクティブに動き回る",
+          "scores": {"actionStyle": 2, "socialStyle": 1, "motivation": -1}
+        },
+        {
+          "text": "家でゴロゴロ。充電期間",
+          "scores": {"actionStyle": -2, "socialStyle": -2, "motivation": -1}
+        },
+        {
+          "text": "資格勉強や副業でスキルアップ",
+          "scores": {"motivation": 2, "socialStyle": -1, "thinking": 1}
+        },
+        {
+          "text": "仲間とBBQや旅行。思い出作り",
+          "scores": {"socialStyle": 2, "actionStyle": 1, "motivation": -1}
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "question": "プレゼン前日、資料がまだ半分しかできてない。どうする？",
+      "options": [
+        {
+          "text": "徹夜で完璧な資料を作り上げる",
+          "scores": {"thinking": 2, "motivation": 1, "actionStyle": 1}
+        },
+        {
+          "text": "資料は適当に、トークで乗り切る準備",
+          "scores": {"thinking": -2, "actionStyle": 1, "motivation": 1}
+        },
+        {
+          "text": "チームメンバーに泣きついて手伝ってもらう",
+          "scores": {"socialStyle": 2, "thinking": -1}
+        },
+        {
+          "text": "できる範囲で出す。評価は気にしない",
+          "scores": {"motivation": -2, "actionStyle": -1, "socialStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "question": "社内で新しいツール導入の話が。あなたの反応は？",
+      "options": [
+        {
+          "text": "「面白そう！」すぐ試してみる",
+          "scores": {"actionStyle": 2, "thinking": -1}
+        },
+        {
+          "text": "費用対効果を検証してから判断すべき",
+          "scores": {"thinking": 2, "actionStyle": -2}
+        },
+        {
+          "text": "「また新しいの...覚えるの面倒」と消極的",
+          "scores": {"actionStyle": -2, "motivation": -1}
+        },
+        {
+          "text": "みんなの意見を聞いて、合意形成してから",
+          "scores": {"socialStyle": 2, "thinking": 1, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "question": "仕事で一番のストレスは？",
+      "options": [
+        {
+          "text": "無駄な会議や非効率なプロセス",
+          "scores": {"thinking": 2, "socialStyle": -1}
+        },
+        {
+          "text": "人間関係やコミュニケーション",
+          "scores": {"socialStyle": -2, "motivation": -1}
+        },
+        {
+          "text": "成果が出ない・評価されないこと",
+          "scores": {"motivation": 2, "thinking": 1}
+        },
+        {
+          "text": "忙しすぎて自分の時間がないこと",
+          "scores": {"motivation": -2, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "question": "「明日から3日間、社内研修」と聞いて思うことは？",
+      "options": [
+        {
+          "text": "「ネットワーキングのチャンス！」",
+          "scores": {"socialStyle": 2, "motivation": 1}
+        },
+        {
+          "text": "「3日も仕事が進まない...」と憂鬱",
+          "scores": {"socialStyle": -1, "motivation": 1, "actionStyle": 1}
+        },
+        {
+          "text": "「新しいスキル習得できるかも」と期待",
+          "scores": {"thinking": 1, "motivation": 1, "socialStyle": -1}
+        },
+        {
+          "text": "「サボれるラッキー」と内心喜ぶ",
+          "scores": {"motivation": -2, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "question": "理想の上司のタイプは？",
+      "options": [
+        {
+          "text": "ビジョンを示してぐいぐい引っ張るリーダー",
+          "scores": {"motivation": 1, "actionStyle": 1, "socialStyle": 1}
+        },
+        {
+          "text": "裁量を与えて、放っておいてくれる人",
+          "scores": {"socialStyle": -2, "motivation": 1}
+        },
+        {
+          "text": "論理的で、きちんとフィードバックくれる人",
+          "scores": {"thinking": 2, "motivation": 1}
+        },
+        {
+          "text": "優しくて、無理させない人",
+          "scores": {"socialStyle": 1, "motivation": -2, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "question": "退職を考えるのはどんな時？",
+      "options": [
+        {
+          "text": "もっと成長できる環境があると感じた時",
+          "scores": {"motivation": 2, "actionStyle": 1}
+        },
+        {
+          "text": "人間関係が最悪になった時",
+          "scores": {"socialStyle": 1, "motivation": -1}
+        },
+        {
+          "text": "残業が多すぎて、生活が崩壊した時",
+          "scores": {"motivation": -2, "actionStyle": -1}
+        },
+        {
+          "text": "会社の方針や戦略に納得できなくなった時",
+          "scores": {"thinking": 2, "motivation": 1, "socialStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "question": "トラブル発生！クライアントから激怒の電話。どうする？",
+      "options": [
+        {
+          "text": "すぐ謝罪に行く。スピード対応が命",
+          "scores": {"actionStyle": 2, "socialStyle": 1}
+        },
+        {
+          "text": "まず原因を調査して、対策を立ててから連絡",
+          "scores": {"thinking": 2, "actionStyle": -1}
+        },
+        {
+          "text": "上司に報告して、指示を仰ぐ",
+          "scores": {"actionStyle": -2, "motivation": -1, "socialStyle": 1}
+        },
+        {
+          "text": "チームで対応策を協議してから動く",
+          "scores": {"socialStyle": 2, "thinking": 1, "actionStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "question": "「副業OK」になったらやりたいことは？",
+      "options": [
+        {
+          "text": "すぐに起業・フリーランスの準備を始める",
+          "scores": {"actionStyle": 2, "motivation": 2, "socialStyle": -1}
+        },
+        {
+          "text": "市場調査して、儲かりそうな分野を見極める",
+          "scores": {"thinking": 2, "motivation": 2}
+        },
+        {
+          "text": "別にやらない。本業で十分",
+          "scores": {"motivation": -2, "actionStyle": -1}
+        },
+        {
+          "text": "友人と一緒に、楽しそうなことを始める",
+          "scores": {"socialStyle": 2, "thinking": -1, "actionStyle": 1}
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "question": "あなたが仕事で一番大事にしていることは？",
+      "options": [
+        {
+          "text": "結果・成果を出すこと",
+          "scores": {"motivation": 2, "thinking": 1}
+        },
+        {
+          "text": "チームワークと人間関係",
+          "scores": {"socialStyle": 2, "motivation": -1}
+        },
+        {
+          "text": "効率と論理性",
+          "scores": {"thinking": 2, "socialStyle": -1}
+        },
+        {
+          "text": "ワークライフバランス",
+          "scores": {"motivation": -2, "actionStyle": -1, "socialStyle": -1}
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "question": "宝くじで1億円当たったら、仕事は？",
+      "options": [
+        {
+          "text": "即退職。人生自由に生きる",
+          "scores": {"motivation": -2, "actionStyle": 1, "socialStyle": -1}
+        },
+        {
+          "text": "起業資金にして、夢を追いかける",
+          "scores": {"motivation": 2, "actionStyle": 2, "socialStyle": -1}
+        },
+        {
+          "text": "続ける。仕事は生きがいだから",
+          "scores": {"motivation": 1, "socialStyle": 1}
+        },
+        {
+          "text": "貯金して、とりあえず今のまま。安定が大事",
+          "scores": {"thinking": 2, "motivation": -1, "actionStyle": -2}
+        }
+      ]
+    }
+  ]
+}
