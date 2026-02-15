@@ -160,38 +160,30 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
 
   const handleShareWithImage = async () => {
     const diagnosticUrl = window.location.origin
-    const imageUrl = `${diagnosticUrl}/api/og-image?code=${encodeURIComponent(
-      character.code
-    )}&name=${encodeURIComponent(character.name)}&subtitle=${encodeURIComponent(
-      character.subtitle
-    )}&icon=${encodeURIComponent(character.icon)}`
-    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\nあなたも診断してみよう👇\n${diagnosticUrl}`
+    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー`
 
     if (navigator.share) {
       try {
-        // Try to fetch and share the image
-        const response = await fetch(imageUrl)
-        const blob = await response.blob()
-        const file = new File([blob], `oshigoto-chara-${character.code}.png`, {
-          type: 'image/png',
+        // First share: Text message
+        await navigator.share({
+          text: text,
         })
 
+        // Wait a moment before second share
+        await new Promise(resolve => setTimeout(resolve, 500))
+
+        // Second share: URL with OGP image
         await navigator.share({
           title: 'お仕事キャラメーカー',
-          text: text,
-          files: [file],
-        })
-      } catch (error) {
-        // Fallback to text-only share
-        navigator.share({
-          title: 'お仕事キャラメーカー',
-          text: text,
+          text: 'あなたも診断してみよう👇',
           url: diagnosticUrl,
         })
+      } catch (error) {
+        console.log('Share cancelled or failed:', error)
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${text}\n\n結果画像: ${imageUrl}`)
+      navigator.clipboard.writeText(`${text}\n\nあなたも診断してみよう👇\n${diagnosticUrl}`)
       alert('結果をクリップボードにコピーしました！')
     }
   }
