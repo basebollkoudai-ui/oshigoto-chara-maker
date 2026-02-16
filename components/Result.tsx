@@ -57,11 +57,33 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
   const imageMap = characterImages.imageMapping as Record<string, string>
   const characterImagePath = imageMap[typeCode] || 'character-01.png'
 
-  // Generate share code on mount
+  // Generate share code and save character on mount
   useEffect(() => {
+    if (!character) return
+
     const code = `${typeCode}-${Date.now().toString(36).slice(-4).toUpperCase()}`
     setShareCode(code)
-  }, [typeCode])
+
+    // Save character to localStorage
+    const savedCharacter = {
+      code: typeCode,
+      name: character.name,
+      subtitle: character.subtitle,
+      icon: character.icon,
+      shareCode: code,
+      timestamp: Date.now(),
+    }
+
+    // Get existing saved characters
+    const existing = localStorage.getItem('savedCharacters')
+    const savedCharacters = existing ? JSON.parse(existing) : []
+
+    // Add new character (keep max 5 most recent)
+    savedCharacters.unshift(savedCharacter)
+    const updated = savedCharacters.slice(0, 5)
+
+    localStorage.setItem('savedCharacters', JSON.stringify(updated))
+  }, [typeCode, character])
 
   // Load predefined advice and save result on mount
   useEffect(() => {
