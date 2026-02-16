@@ -226,23 +226,28 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
 
   const handleShareWithImage = async () => {
     const diagnosticUrl = window.location.origin
-    const resultUrl = `${diagnosticUrl}/result/${character.code}`
-    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\n共有コード: ${shareCode}`
+    const resultUrl = `${diagnosticUrl}`
+
+    // 特徴を抽出（最大2つ）
+    const features = character.strengths.slice(0, 2)
+    const hashtags = features.map(f => `#${f.replace(/\s+/g, '')}`).join(' ')
+
+    const firstMessage = `私は「${character.name}」です！\n私との相性を測ってみませんか？\n\n${resultUrl}\n\n共有コード: ${shareCode}\n\n#ワークモンスター ${hashtags}`
 
     if (navigator.share) {
       try {
         // First share: Text message with share code
         await navigator.share({
-          text: text,
+          text: firstMessage,
         })
 
         // Wait a moment before second share
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 1000))
 
-        // Second share: URL with OGP image (individual result page)
+        // Second share: URL with OGP image
         await navigator.share({
           title: 'お仕事キャラメーカー',
-          text: 'あなたも診断してみよう👇',
+          text: 'あなたも診断してみよう',
           url: resultUrl,
         })
       } catch (error) {
@@ -250,8 +255,8 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${text}\n\nあなたも診断してみよう👇\n${resultUrl}`)
-      alert('結果をクリップボードにコピーしました！')
+      navigator.clipboard.writeText(`${firstMessage}\n\n--- 2通目 ---\nあなたも診断してみよう\n${resultUrl}`)
+      alert('共有内容をクリップボードにコピーしました！')
     }
   }
 

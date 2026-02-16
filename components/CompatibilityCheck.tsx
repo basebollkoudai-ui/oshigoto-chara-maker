@@ -182,9 +182,25 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
               >
                 <div className="text-center mb-4">
                   <div className="flex items-center justify-center gap-3 mb-3">
-                    <span className="text-4xl">{selectedCharacter.icon}</span>
-                    <span className="text-2xl">×</span>
-                    <span className="text-4xl">{compatibilityResult.partnerIcon}</span>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                      <Image
+                        src={`/characters/${imageMap[selectedCharacter.code]}`}
+                        alt={selectedCharacter.name}
+                        width={96}
+                        height={96}
+                        className="rounded-lg object-contain w-full h-full"
+                      />
+                    </div>
+                    <span className="text-2xl font-bold">×</span>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                      <Image
+                        src={`/characters/${imageMap[compatibilityResult.partnerCode]}`}
+                        alt={compatibilityResult.partnerName}
+                        width={96}
+                        height={96}
+                        className="rounded-lg object-contain w-full h-full"
+                      />
+                    </div>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-rounded font-bold text-gray-800 mb-2">
                     {compatibilityResult.message}

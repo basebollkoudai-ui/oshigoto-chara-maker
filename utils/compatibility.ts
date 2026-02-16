@@ -4,6 +4,7 @@ export interface CompatibilityResult {
   percentage: number
   message: string
   details: string[]
+  partnerCode: string
 }
 
 // キャラクタータイプ間の相性マトリクス
@@ -106,6 +107,7 @@ export function getCompatibility(code1: string, code2: string): CompatibilityRes
     percentage,
     message,
     details,
+    partnerCode: code2,
   }
 }
 
