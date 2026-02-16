@@ -45,7 +45,11 @@ export default function CharactersPage() {
               className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg overflow-hidden"
             >
               {/* Character Header */}
-              <div className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6">
+              <button
+                onClick={() => toggleCharacter(character.code)}
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity"
+                type="button"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
                     <Image
@@ -69,23 +73,15 @@ export default function CharactersPage() {
                       {character.subtitle}
                     </p>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      toggleCharacter(character.code)
-                    }}
-                    className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
-                    aria-label="詳細を表示"
-                    type="button"
-                  >
+                  <div className="text-white p-2 flex-shrink-0">
                     {expandedCharacter === character.code ? (
                       <ChevronUp className="w-6 h-6" />
                     ) : (
                       <ChevronDown className="w-6 h-6" />
                     )}
-                  </button>
+                  </div>
                 </div>
-              </div>
+              </button>
 
               {/* Character Details (Expandable) */}
               {expandedCharacter === character.code && (
