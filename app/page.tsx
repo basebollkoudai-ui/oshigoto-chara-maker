@@ -55,7 +55,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg sm:text-xl md:text-2xl font-rounded font-bold text-gray-800 mb-2 drop-shadow-sm px-2">
-            あなたに合った仕事を見つけよう
+            20の質問であなたのキャラクターを診断
           </p>
 
           <Link
