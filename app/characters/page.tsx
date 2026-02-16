@@ -10,24 +10,27 @@ import type { CharactersData } from '@/types/quiz'
 
 export default function CharactersPage() {
   const [expandedCharacter, setExpandedCharacter] = useState<string | null>(null)
+  const [isAnimating, setIsAnimating] = useState(false)
   const data = charactersData as CharactersData
   const imageMap = characterImages.imageMapping as Record<string, string>
 
-  const toggleCharacter = useCallback((code: string) => {
-    return (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault()
-      e.stopPropagation()
-      if (e.nativeEvent) {
-        e.nativeEvent.stopImmediatePropagation()
-      }
-
-      // 確実に単一の切り替えのみを実行
-      setExpandedCharacter(prevCode => {
-        const newCode = prevCode === code ? null : code
-        return newCode
-      })
+  const handleToggle = useCallback((code: string, e: React.MouseEvent<HTMLButtonElement>) => {
+    // 連続クリックを防止
+    if (isAnimating) {
+      return
     }
-  }, [])
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    setIsAnimating(true)
+    setExpandedCharacter(prev => prev === code ? null : code)
+
+    // アニメーション完了後にフラグをリセット
+    setTimeout(() => {
+      setIsAnimating(false)
+    }, 100)
+  }, [isAnimating])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pastel-pink via-pastel-purple to-pastel-blue py-6 sm:py-8 px-3 sm:px-4">
@@ -60,16 +63,10 @@ export default function CharactersPage() {
             >
               {/* Character Header */}
               <button
-                onClick={toggleCharacter(character.code)}
-                onClickCapture={(e) => {
-                  e.stopPropagation()
-                  e.nativeEvent?.stopImmediatePropagation()
-                }}
-                onMouseDown={(e) => {
-                  e.stopPropagation()
-                }}
-                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation"
+                onClick={(e) => handleToggle(character.code, e)}
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation disabled:opacity-50"
                 type="button"
+                disabled={isAnimating}
                 style={{ pointerEvents: 'auto', isolation: 'isolate' }}
               >
                 <div className="flex items-center gap-4">
