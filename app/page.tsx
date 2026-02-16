@@ -38,10 +38,10 @@ export default function Home() {
           <div className="mb-8 px-4 flex justify-center">
             <Image
               src="/mv.png"
-              alt="お仕事キャラメーカー - 全16キャラクター"
-              width={1472}
-              height={704}
-              className="rounded-3xl shadow-pop-lg max-w-full h-auto"
+              alt="お仕事キャラメーカー - 全12キャラクター"
+              width={512}
+              height={254}
+              className="rounded-3xl shadow-pop-lg w-full max-w-2xl h-auto object-contain"
               priority
             />
           </div>

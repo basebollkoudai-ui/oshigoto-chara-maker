@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://oshigoto-chara-maker.vercel.app/mv.png',
-        width: 1472,
-        height: 704,
+        width: 512,
+        height: 254,
         alt: 'お仕事キャラメーカー - 全12キャラクター',
       },
     ],
