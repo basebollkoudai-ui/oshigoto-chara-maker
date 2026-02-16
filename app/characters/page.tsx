@@ -13,8 +13,12 @@ export default function CharactersPage() {
   const data = charactersData as CharactersData
   const imageMap = characterImages.imageMapping as Record<string, string>
 
-  const toggleCharacter = (code: string) => {
-    setExpandedCharacter(expandedCharacter === code ? null : code)
+  const toggleCharacter = (code: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    setExpandedCharacter(prevCode => prevCode === code ? null : code)
   }
 
   return (
@@ -46,8 +50,8 @@ export default function CharactersPage() {
             >
               {/* Character Header */}
               <button
-                onClick={() => toggleCharacter(character.code)}
-                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity"
+                onClick={(e) => toggleCharacter(character.code, e)}
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity cursor-pointer"
                 type="button"
               >
                 <div className="flex items-center gap-4">
