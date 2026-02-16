@@ -116,13 +116,13 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
                   onClick={() => setSelectedCharacter(char)}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center flex-shrink-0 p-1">
                       <Image
                         src={`/characters/${imageMap[char.code]}`}
                         alt={char.name}
                         width={60}
                         height={60}
-                        className="rounded-lg"
+                        className="rounded-lg object-contain w-full h-full"
                       />
                     </div>
                     <div className="flex-1">

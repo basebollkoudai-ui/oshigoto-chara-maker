@@ -59,13 +59,13 @@ export default function CharactersPage() {
                 style={{ pointerEvents: 'auto', isolation: 'isolate' }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center p-1 sm:p-2 flex-shrink-0">
                     <Image
                       src={`/characters/${imageMap[character.code]}`}
                       alt={character.name}
                       width={96}
                       height={96}
-                      className="rounded-lg"
+                      className="rounded-lg object-contain w-full h-full"
                     />
                   </div>
                   <div className="flex-1 min-w-0">

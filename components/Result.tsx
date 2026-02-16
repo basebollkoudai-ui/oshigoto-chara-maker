@@ -318,7 +318,7 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
                   alt={character.name}
                   width={160}
                   height={160}
-                  className="rounded-xl sm:rounded-2xl"
+                  className="rounded-xl sm:rounded-2xl object-contain w-full h-full"
                   priority
                 />
               </div>
