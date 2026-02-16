@@ -28,7 +28,7 @@ export default function CharactersPage() {
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-gray-800 text-3xl sm:text-4xl md:text-5xl font-rounded font-bold mb-3">
-            全12種類のお仕事キャラクター
+            全16種類のお仕事キャラクター
           </h1>
           <p className="text-gray-600 text-base sm:text-lg mb-6">
             あなたはどのキャラクターになるかな？

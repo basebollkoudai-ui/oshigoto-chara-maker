@@ -38,10 +38,10 @@ export default function Home() {
           <div className="mb-8 px-4 flex justify-center">
             <Image
               src="/mv.png"
-              alt="お仕事キャラメーカー - 全12キャラクター"
-              width={512}
-              height={254}
-              className="rounded-3xl shadow-pop-lg w-full max-w-2xl h-auto object-contain"
+              alt="お仕事キャラメーカー - 全16キャラクター"
+              width={1472}
+              height={704}
+              className="rounded-3xl shadow-pop-lg w-full max-w-4xl h-auto object-contain"
               priority
             />
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
           >
             <p className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2">
               <List className="w-4 h-4 sm:w-5 sm:h-5" />
-              12種類のお仕事キャラクターから診断
+              16種類のお仕事キャラクターから診断
             </p>
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function Home() {
                   あなたに合った仕事を見つけよう 💭
                 </p>
                 <p className="text-gray-700 leading-relaxed font-medium text-sm sm:text-base">
-                  簡単な質問に答えるだけで、あなたの働き方の特徴から、16種類のお仕事キャラクターの中からぴったりのタイプを診断します。
+                  簡単な質問に答えるだけで、あなたの働き方の特徴から、全16種類のお仕事キャラクターの中からぴったりのタイプを診断します。
                 </p>
                 <div className="space-y-2 md:space-y-3 text-gray-700 text-sm sm:text-base">
                   <p className="flex items-center font-medium">
