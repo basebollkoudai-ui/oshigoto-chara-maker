@@ -12,35 +12,32 @@ async function removeWhiteBackground(inputPath, outputPath) {
   try {
     const image = sharp(inputPath);
 
-    // 白い背景を透過に変換（より厳密な処理）
+    // 白い背景のみを透過に変換（キャラクター部分は保持）
     await image
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true })
       .then(({ data, info }) => {
         const { width, height, channels } = info;
-        const threshold = 230; // より低い閾値で白を検出
+
+        // より厳格な白色検出（ほぼ純粋な白のみ）
+        const whiteThreshold = 245; // 245以上を白とみなす
+        const colorDiffThreshold = 10; // RGB差が10以下で均一とみなす
 
         for (let i = 0; i < data.length; i += channels) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          const a = data[i + 3];
 
-          // 白、グレー、明るい色を全て透明化
-          // RGBの差が小さく（色が均一）、かつ明度が高い場合
+          // RGB値の差を計算
           const maxChannel = Math.max(r, g, b);
           const minChannel = Math.min(r, g, b);
           const colorDiff = maxChannel - minChannel;
-          const brightness = (r + g + b) / 3;
 
-          // 白っぽい色（色差が小さく、明度が高い）を透明にする
-          if (brightness > threshold && colorDiff < 30) {
+          // ほぼ純粋な白色のみを透明化
+          // 条件: 全てのRGB値が245以上 かつ RGB差が10以下
+          if (r >= whiteThreshold && g >= whiteThreshold && b >= whiteThreshold && colorDiff <= colorDiffThreshold) {
             data[i + 3] = 0; // 完全透明
-          }
-          // グレー系の色も透明にする
-          else if (colorDiff < 15 && brightness > 200) {
-            data[i + 3] = 0;
           }
         }
 

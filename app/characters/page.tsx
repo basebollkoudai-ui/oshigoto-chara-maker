@@ -45,10 +45,7 @@ export default function CharactersPage() {
               className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg overflow-hidden"
             >
               {/* Character Header */}
-              <div
-                className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 cursor-pointer"
-                onClick={() => toggleCharacter(character.code)}
-              >
+              <div className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6">
                 <div className="flex items-center gap-4">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
                     <Image
@@ -72,7 +69,11 @@ export default function CharactersPage() {
                       {character.subtitle}
                     </p>
                   </div>
-                  <button className="text-white">
+                  <button
+                    onClick={() => toggleCharacter(character.code)}
+                    className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    aria-label="詳細を表示"
+                  >
                     {expandedCharacter === character.code ? (
                       <ChevronUp className="w-6 h-6" />
                     ) : (
