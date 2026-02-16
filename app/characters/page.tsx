@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
@@ -13,13 +13,14 @@ export default function CharactersPage() {
   const data = charactersData as CharactersData
   const imageMap = characterImages.imageMapping as Record<string, string>
 
-  const toggleCharacter = (code: string, e?: React.MouseEvent) => {
-    if (e) {
+  const toggleCharacter = useCallback((code: string) => {
+    return (e: React.MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
+      e.nativeEvent.stopImmediatePropagation()
+      setExpandedCharacter(prevCode => prevCode === code ? null : code)
     }
-    setExpandedCharacter(prevCode => prevCode === code ? null : code)
-  }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pastel-pink via-pastel-purple to-pastel-blue py-6 sm:py-8 px-3 sm:px-4">
@@ -46,13 +47,16 @@ export default function CharactersPage() {
           {data.characterTypes.map((character) => (
             <div
               key={character.code}
-              className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg overflow-hidden"
+              className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg overflow-hidden isolate"
+              style={{ pointerEvents: 'auto' }}
             >
               {/* Character Header */}
               <button
-                onClick={(e) => toggleCharacter(character.code, e)}
-                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity cursor-pointer"
+                onClick={toggleCharacter(character.code)}
+                onClickCapture={(e) => e.stopPropagation()}
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation"
                 type="button"
+                style={{ pointerEvents: 'auto', isolation: 'isolate' }}
               >
                 <div className="flex items-center gap-4">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
