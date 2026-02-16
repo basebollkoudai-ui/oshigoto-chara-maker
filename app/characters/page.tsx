@@ -14,11 +14,18 @@ export default function CharactersPage() {
   const imageMap = characterImages.imageMapping as Record<string, string>
 
   const toggleCharacter = useCallback((code: string) => {
-    return (e: React.MouseEvent) => {
+    return (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       e.stopPropagation()
-      e.nativeEvent.stopImmediatePropagation()
-      setExpandedCharacter(prevCode => prevCode === code ? null : code)
+      if (e.nativeEvent) {
+        e.nativeEvent.stopImmediatePropagation()
+      }
+
+      // 確実に単一の切り替えのみを実行
+      setExpandedCharacter(prevCode => {
+        const newCode = prevCode === code ? null : code
+        return newCode
+      })
     }
   }, [])
 
@@ -48,12 +55,19 @@ export default function CharactersPage() {
             <div
               key={character.code}
               className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg overflow-hidden isolate"
-              style={{ pointerEvents: 'auto' }}
+              style={{ pointerEvents: 'none' }}
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Character Header */}
               <button
                 onClick={toggleCharacter(character.code)}
-                onClickCapture={(e) => e.stopPropagation()}
+                onClickCapture={(e) => {
+                  e.stopPropagation()
+                  e.nativeEvent?.stopImmediatePropagation()
+                }}
+                onMouseDown={(e) => {
+                  e.stopPropagation()
+                }}
                 className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation"
                 type="button"
                 style={{ pointerEvents: 'auto', isolation: 'isolate' }}

@@ -64,7 +64,7 @@ export default function Home() {
           >
             <p className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2">
               <List className="w-4 h-4 sm:w-5 sm:h-5" />
-              16種類のお仕事キャラクターから診断
+              16種類のワークモンスターを見る
             </p>
           </Link>
         </div>
