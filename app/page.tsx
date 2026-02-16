@@ -2,10 +2,11 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, ArrowRight, Heart } from 'lucide-react'
+import { Sparkles, ArrowRight, Heart, List } from 'lucide-react'
 import Quiz from '@/components/Quiz'
 import CompatibilityCheck from '@/components/CompatibilityCheck'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type Mode = 'home' | 'quiz' | 'compatibility'
 
@@ -55,12 +56,15 @@ export default function Home() {
             あなたに合った仕事を見つけよう
           </p>
 
-          <div className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2">
-            <p className="text-gray-700 font-medium text-sm sm:text-base">
-              <span className="text-xl sm:text-2xl mr-2">🎭</span>
+          <Link
+            href="/characters"
+            className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2 hover:bg-white/90 transition-all hover:shadow-pop-lg"
+          >
+            <p className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2">
+              <List className="w-4 h-4 sm:w-5 sm:h-5" />
               16種類のお仕事キャラクターから診断
             </p>
-          </div>
+          </Link>
         </div>
 
         {/* Main Content Card */}
@@ -102,17 +106,16 @@ export default function Home() {
                 onClick={() => setMode('quiz')}
                 className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20"
               >
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                 キャラクターを生成する
-                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
               </button>
 
               <button
                 onClick={() => setMode('compatibility')}
                 className="w-full bg-white text-primary-600 font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-primary-200"
               >
-                <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
                 相性診断をする
+                <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
               </button>
             </div>
 
