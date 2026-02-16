@@ -56,7 +56,7 @@ export default function CharactersPage() {
                       className="rounded-lg"
                     />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-2">
                       <span className="text-white font-mono font-bold text-sm">
                         {character.code}
@@ -70,9 +70,13 @@ export default function CharactersPage() {
                     </p>
                   </div>
                   <button
-                    onClick={() => toggleCharacter(character.code)}
-                    className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      toggleCharacter(character.code)
+                    }}
+                    className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
                     aria-label="詳細を表示"
+                    type="button"
                   >
                     {expandedCharacter === character.code ? (
                       <ChevronUp className="w-6 h-6" />
