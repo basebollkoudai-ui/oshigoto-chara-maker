@@ -48,13 +48,7 @@ export default function Home() {
             </div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-rounded font-extrabold mb-4 leading-tight px-2">
-            <span className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent drop-shadow-lg">
-              お仕事キャラメーカー
-            </span>
-          </h1>
-
-          <p className="text-lg sm:text-xl md:text-2xl font-rounded font-bold text-gray-800 mb-2 drop-shadow-sm px-2">
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold text-gray-800 mb-6 drop-shadow-sm px-2">
             20の質問であなたのキャラクターを診断
           </p>
 
