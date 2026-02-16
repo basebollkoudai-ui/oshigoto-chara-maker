@@ -51,8 +51,11 @@ export default function Home() {
           <div className="mb-6 px-2">
             <div className="inline-block bg-white/80 backdrop-blur-md rounded-3xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 shadow-pop-lg border-2 border-white">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent leading-tight">
-                20の質問で<br className="sm:hidden" />
-                あなたのキャラクターを診断
+                20の質問で
+                <br className="sm:hidden" />
+                あなたのキャラクターを
+                <br className="sm:hidden" />
+                診断
               </h1>
             </div>
           </div>

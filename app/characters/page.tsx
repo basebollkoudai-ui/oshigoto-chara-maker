@@ -64,9 +64,8 @@ export default function CharactersPage() {
               {/* Character Header */}
               <button
                 onClick={(e) => handleToggle(character.code, e)}
-                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue p-4 sm:p-6 text-left hover:opacity-95 transition-opacity select-none touch-manipulation"
                 type="button"
-                disabled={isAnimating}
                 style={{ pointerEvents: 'auto', isolation: 'isolate' }}
               >
                 <div className="flex items-center gap-4">
