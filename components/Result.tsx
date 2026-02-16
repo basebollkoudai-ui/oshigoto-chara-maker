@@ -14,6 +14,9 @@ import {
   MessageCircle,
   Download,
   Image as ImageIcon,
+  Copy,
+  Heart,
+  Search,
 } from 'lucide-react'
 import type { Scores, CharactersData, AnswerHistory } from '@/types/quiz'
 import charactersData from '@/data/characters.json'
@@ -22,6 +25,7 @@ import characterImages from '@/data/character-images.json'
 import SkillRadarChart from './SkillRadarChart'
 import { Briefcase } from 'lucide-react'
 import Image from 'next/image'
+import { getCompatibility } from '@/utils/compatibility'
 
 interface ResultProps {
   scores: Scores
@@ -32,6 +36,10 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
   const [aiAdvice, setAiAdvice] = useState<string>('')
   const [isLoadingAdvice, setIsLoadingAdvice] = useState(false)
   const [adviceError, setAdviceError] = useState<string>('')
+  const [shareCode, setShareCode] = useState<string>('')
+  const [partnerCode, setPartnerCode] = useState<string>('')
+  const [compatibilityResult, setCompatibilityResult] = useState<any>(null)
+  const [showCompatibility, setShowCompatibility] = useState(false)
 
   // Determine character type based on scores
   const determineType = (): string => {
@@ -48,6 +56,12 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
   const character = data.characterTypes.find((c) => c.code === typeCode)
   const imageMap = characterImages.imageMapping as Record<string, string>
   const characterImagePath = imageMap[typeCode] || 'character-01.png'
+
+  // Generate share code on mount
+  useEffect(() => {
+    const code = `${typeCode}-${Date.now().toString(36).slice(-4).toUpperCase()}`
+    setShareCode(code)
+  }, [typeCode])
 
   // Load predefined advice and save result on mount
   useEffect(() => {
@@ -158,13 +172,44 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
     }
   }
 
+  const handleCopyShareCode = () => {
+    navigator.clipboard.writeText(shareCode)
+    alert('共有コードをコピーしました！')
+  }
+
+  const handleCheckCompatibility = () => {
+    if (!partnerCode.trim()) {
+      alert('相手の共有コードを入力してください')
+      return
+    }
+
+    // Extract character code from share code (format: CODE-XXXX)
+    const partnerCharCode = partnerCode.split('-')[0]
+
+    // Validate partner code
+    const partnerChar = data.characterTypes.find((c) => c.code === partnerCharCode)
+    if (!partnerChar) {
+      alert('無効な共有コードです')
+      return
+    }
+
+    const result = getCompatibility(typeCode, partnerCharCode)
+    setCompatibilityResult({
+      ...result,
+      partnerName: partnerChar.name,
+      partnerIcon: partnerChar.icon,
+    })
+    setShowCompatibility(true)
+  }
+
   const handleShareWithImage = async () => {
     const diagnosticUrl = window.location.origin
-    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー`
+    const resultUrl = `${diagnosticUrl}/result/${character.code}`
+    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\n共有コード: ${shareCode}`
 
     if (navigator.share) {
       try {
-        // First share: Text message
+        // First share: Text message with share code
         await navigator.share({
           text: text,
         })
@@ -172,18 +217,18 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
         // Wait a moment before second share
         await new Promise(resolve => setTimeout(resolve, 500))
 
-        // Second share: URL with OGP image
+        // Second share: URL with OGP image (individual result page)
         await navigator.share({
           title: 'お仕事キャラメーカー',
           text: 'あなたも診断してみよう👇',
-          url: diagnosticUrl,
+          url: resultUrl,
         })
       } catch (error) {
         console.log('Share cancelled or failed:', error)
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${text}\n\nあなたも診断してみよう👇\n${diagnosticUrl}`)
+      navigator.clipboard.writeText(`${text}\n\nあなたも診断してみよう👇\n${resultUrl}`)
       alert('結果をクリップボードにコピーしました！')
     }
   }
@@ -493,6 +538,101 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
               )}
             </motion.div>
           </div>
+        </motion.div>
+
+        {/* Share Code Section */}
+        <motion.div
+          variants={itemVariants}
+          className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg p-4 sm:p-6 mb-4 sm:mb-6"
+        >
+          <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-pink rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+              <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            <h3 className="text-lg sm:text-xl font-rounded font-bold text-gray-800">あなたの共有コード</h3>
+          </div>
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+            このコードを友達に共有して、仕事の相性を診断してもらおう！
+          </p>
+          <div className="flex gap-2 sm:gap-3">
+            <div className="flex-1 bg-gradient-pastel-pink rounded-xl sm:rounded-2xl p-3 sm:p-4 border-2 border-accent-pink border-opacity-30">
+              <p className="text-center font-mono font-bold text-lg sm:text-2xl text-gray-800">
+                {shareCode}
+              </p>
+            </div>
+            <button
+              onClick={handleCopyShareCode}
+              className="bg-accent-pink text-white font-rounded font-bold px-4 sm:px-6 rounded-xl sm:rounded-2xl shadow-pop hover:shadow-pop-lg transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+            >
+              <Copy className="w-4 h-4 sm:w-5 sm:h-5" />
+              コピー
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Compatibility Check Section */}
+        <motion.div
+          variants={itemVariants}
+          className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg p-4 sm:p-6 mb-4 sm:mb-6"
+        >
+          <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-blue rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            <h3 className="text-lg sm:text-xl font-rounded font-bold text-gray-800">仕事の相性診断</h3>
+          </div>
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+            相手の共有コードを入力して、仕事の相性をチェック！
+          </p>
+          <div className="flex gap-2 sm:gap-3 mb-4">
+            <input
+              type="text"
+              value={partnerCode}
+              onChange={(e) => setPartnerCode(e.target.value.toUpperCase())}
+              placeholder="例: IGYS-A1B2"
+              className="flex-1 px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-gray-200 focus:border-accent-blue focus:outline-none font-mono text-sm sm:text-base"
+            />
+            <button
+              onClick={handleCheckCompatibility}
+              className="bg-accent-blue text-white font-rounded font-bold px-4 sm:px-6 rounded-xl sm:rounded-2xl shadow-pop hover:shadow-pop-lg transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+            >
+              <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+              診断
+            </button>
+          </div>
+
+          {/* Compatibility Result */}
+          {showCompatibility && compatibilityResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="gradient-pastel-purple rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 border-primary-200 border-opacity-30"
+            >
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <span className="text-4xl">{character.icon}</span>
+                  <span className="text-2xl">×</span>
+                  <span className="text-4xl">{compatibilityResult.partnerIcon}</span>
+                </div>
+                <h4 className="text-xl sm:text-2xl font-rounded font-bold text-gray-800 mb-2">
+                  {compatibilityResult.message}
+                </h4>
+                <div className="inline-block bg-white/70 backdrop-blur-sm px-6 py-3 rounded-full">
+                  <p className="text-3xl sm:text-4xl font-bold text-accent-blue">
+                    {compatibilityResult.percentage}%
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                {compatibilityResult.details.map((detail: string, index: number) => (
+                  <div key={index} className="flex items-start gap-2 bg-white/60 rounded-lg p-3">
+                    <span className="text-accent-blue flex-shrink-0">✓</span>
+                    <p className="text-sm sm:text-base text-gray-700">{detail}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Action Buttons */}
