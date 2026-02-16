@@ -2,15 +2,22 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Flame, ArrowRight } from 'lucide-react'
+import { Sparkles, ArrowRight, Wand2 } from 'lucide-react'
 import Quiz from '@/components/Quiz'
+import CharacterGenerator from '@/components/CharacterGenerator'
 import Image from 'next/image'
 
-export default function Home() {
-  const [started, setStarted] = useState(false)
+type Mode = 'home' | 'generator' | 'diagnosis'
 
-  if (started) {
+export default function Home() {
+  const [mode, setMode] = useState<Mode>('home')
+
+  if (mode === 'diagnosis') {
     return <Quiz />
+  }
+
+  if (mode === 'generator') {
+    return <CharacterGenerator onBack={() => setMode('home')} />
   }
 
   return (
@@ -89,15 +96,26 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Start Button */}
-            <button
-              onClick={() => setStarted(true)}
-              className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20 hover:scale-105 active:scale-95"
-            >
-              <span className="text-2xl sm:text-3xl">🚀</span>
-              診断を始める
-              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              <button
+                onClick={() => setMode('generator')}
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20"
+              >
+                <Wand2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                キャラクターを生成する
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+
+              <button
+                onClick={() => setMode('diagnosis')}
+                className="w-full bg-white text-primary-600 font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-primary-200"
+              >
+                <span className="text-2xl sm:text-3xl">🚀</span>
+                診断を始める
+                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+            </div>
 
             {/* Footer */}
             <p className="text-center text-gray-500 text-xs sm:text-sm mt-4 sm:mt-6">
