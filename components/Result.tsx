@@ -12,7 +12,6 @@ import {
   Loader2,
   Brain,
   MessageCircle,
-  Download,
   Image as ImageIcon,
   Copy,
   Heart,
@@ -167,31 +166,6 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
     const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\nあなたも診断してみよう👇\n${diagnosticUrl}\n\n${imageUrl}`
     const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`
     window.open(url, '_blank')
-  }
-
-  const handleDownloadImage = async () => {
-    try {
-      const imageUrl = `/api/og-image?code=${encodeURIComponent(
-        character.code
-      )}&name=${encodeURIComponent(character.name)}&subtitle=${encodeURIComponent(
-        character.subtitle
-      )}&icon=${encodeURIComponent(character.icon)}`
-
-      const response = await fetch(imageUrl)
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `work-monster-${character.code}.png`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-    } catch (error) {
-      console.error('Error downloading image:', error)
-      alert('画像のダウンロードに失敗しました')
-    }
   }
 
   const handleCopyShareCode = () => {
@@ -683,17 +657,8 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={handleDownloadImage}
-              className="flex-1 bg-white text-primary-600 font-rounded font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl shadow-pop hover:shadow-pop-lg transition-all duration-300 flex items-center justify-center gap-2 border-2 border-primary-200 text-sm sm:text-base"
-            >
-              <Download className="w-4 h-4 sm:w-5 sm:h-5" />
-              結果画像をダウンロード
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={handleRestart}
-              className="flex-1 bg-white text-gray-600 font-rounded font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl shadow-pop hover:shadow-pop-lg transition-all duration-300 flex items-center justify-center gap-2 border-2 border-gray-200 text-sm sm:text-base"
+              className="w-full bg-white text-gray-600 font-rounded font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl shadow-pop hover:shadow-pop-lg transition-all duration-300 flex items-center justify-center gap-2 border-2 border-gray-200 text-sm sm:text-base"
             >
               <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
               もう一度診断

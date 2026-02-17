@@ -32,15 +32,27 @@ export default function Home() {
         <div className="absolute top-1/2 left-5 md:left-20 w-20 h-20 md:w-24 md:h-24 bg-accent-pink rounded-full opacity-30 blur-2xl animate-pulse-soft"></div>
         <div className="absolute top-1/3 right-1/3 w-24 h-24 md:w-32 md:h-32 bg-primary-300 rounded-full opacity-30 blur-2xl animate-pulse-soft" style={{ animationDelay: '1.5s' }}></div>
 
-        {/* 浮き上がる泡 */}
-        <div className="absolute bottom-0 left-[10%] w-16 h-16 bg-white/40 rounded-full blur-md animate-bubble" style={{ animationDuration: '8s', animationDelay: '0s' }}></div>
-        <div className="absolute bottom-0 left-[25%] w-12 h-12 bg-pastel-pink/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
-        <div className="absolute bottom-0 left-[45%] w-20 h-20 bg-pastel-blue/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
-        <div className="absolute bottom-0 left-[60%] w-14 h-14 bg-pastel-purple/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '9s', animationDelay: '3s' }}></div>
-        <div className="absolute bottom-0 left-[75%] w-18 h-18 bg-pastel-mint/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '11s', animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-0 left-[90%] w-13 h-13 bg-pastel-yellow/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '10s', animationDelay: '4s' }}></div>
-        <div className="absolute bottom-0 right-[15%] w-15 h-15 bg-white/35 rounded-full blur-md animate-bubble" style={{ animationDuration: '13s', animationDelay: '2.5s' }}></div>
-        <div className="absolute bottom-0 right-[35%] w-17 h-17 bg-pastel-peach/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '9.5s', animationDelay: '1.5s' }}></div>
+        {/* 浮き上がる泡 - 白枠タイプ */}
+        <div className="absolute bottom-0 left-[8%] w-16 h-16 rounded-full border-2 border-white/60 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 left-[18%] w-12 h-12 rounded-full border-2 border-white/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-[28%] w-20 h-20 rounded-full border-2 border-white/50 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-0 left-[38%] w-14 h-14 rounded-full border-2 border-white/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 left-[48%] w-18 h-18 rounded-full border-2 border-white/55 animate-bubble" style={{ animationDuration: '5s', animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-0 left-[58%] w-16 h-16 rounded-full border-2 border-white/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.8s' }}></div>
+        <div className="absolute bottom-0 left-[68%] w-13 h-13 rounded-full border-2 border-white/60 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '2.5s' }}></div>
+        <div className="absolute bottom-0 left-[78%] w-15 h-15 rounded-full border-2 border-white/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.2s' }}></div>
+        <div className="absolute bottom-0 left-[88%] w-17 h-17 rounded-full border-2 border-white/50 animate-bubble" style={{ animationDuration: '5s', animationDelay: '3s' }}></div>
+
+        {/* 浮き上がる泡 - 黒枠タイプ */}
+        <div className="absolute bottom-0 left-[13%] w-14 h-14 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.3s' }}></div>
+        <div className="absolute bottom-0 left-[23%] w-18 h-18 rounded-full border-2 border-gray-800/25 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1.8s' }}></div>
+        <div className="absolute bottom-0 left-[33%] w-12 h-12 rounded-full border-2 border-gray-800/35 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0.7s' }}></div>
+        <div className="absolute bottom-0 left-[43%] w-16 h-16 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2.2s' }}></div>
+        <div className="absolute bottom-0 left-[53%] w-13 h-13 rounded-full border-2 border-gray-800/28 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '1.3s' }}></div>
+        <div className="absolute bottom-0 left-[63%] w-19 h-19 rounded-full border-2 border-gray-800/32 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.4s' }}></div>
+        <div className="absolute bottom-0 left-[73%] w-15 h-15 rounded-full border-2 border-gray-800/27 animate-bubble" style={{ animationDuration: '5s', animationDelay: '2.8s' }}></div>
+        <div className="absolute bottom-0 left-[83%] w-14 h-14 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.6s' }}></div>
+        <div className="absolute bottom-0 left-[93%] w-16 h-16 rounded-full border-2 border-gray-800/25 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '3.2s' }}></div>
       </div>
 
       {/* ヘッダー */}

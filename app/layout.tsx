@@ -18,25 +18,34 @@ const notoSansJP = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://oshigoto-chara-maker.vercel.app'),
-  title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
-  description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
+  title: 'ワークモンスター診断 - あなたは何系キャラクター？',
+  description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のワークモンスターに分類します。',
   viewport: {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
   },
   openGraph: {
-    title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
-    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
+    title: 'ワークモンスター診断 - あなたは何系キャラクター？',
+    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のワークモンスターに分類します。',
     url: 'https://oshigoto-chara-maker.vercel.app',
-    siteName: 'お仕事キャラメーカー',
+    siteName: 'ワークモンスター診断',
     locale: 'ja_JP',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ワークモンスター診断',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'お仕事キャラメーカー - あなたは何系キャラクター？',
-    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のお仕事キャラクターに分類します。',
+    title: 'ワークモンスター診断 - あなたは何系キャラクター？',
+    description: '建前はもういい。本音で答えろ。あなたの真の仕事スタイルを16種類のワークモンスターに分類します。',
+    images: ['/twitter-image.png'],
   },
 }
 
