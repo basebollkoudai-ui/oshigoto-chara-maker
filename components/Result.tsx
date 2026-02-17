@@ -232,30 +232,19 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
     const features = character.strengths.slice(0, 2)
     const hashtags = features.map(f => `#${f.replace(/\s+/g, '')}`).join(' ')
 
-    const firstMessage = `私は「${character.name}」です！\n私との相性を測ってみませんか？\n\n${resultUrl}\n\n共有コード: ${shareCode}\n\n#ワークモンスター ${hashtags}`
+    const shareMessage = `私の診断結果は、「${character.name}」です！\n私との仕事の相性を測ってみませんか？\n\n${resultUrl}\n\n#ワークモンスター ${hashtags}`
 
     if (navigator.share) {
       try {
-        // First share: Text message with share code
         await navigator.share({
-          text: firstMessage,
-        })
-
-        // Wait a moment before second share
-        await new Promise(resolve => setTimeout(resolve, 1000))
-
-        // Second share: URL with OGP image
-        await navigator.share({
-          title: 'お仕事キャラメーカー',
-          text: 'あなたも診断してみよう',
-          url: resultUrl,
+          text: shareMessage,
         })
       } catch (error) {
         console.log('Share cancelled or failed:', error)
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${firstMessage}\n\n--- 2通目 ---\nあなたも診断してみよう\n${resultUrl}`)
+      navigator.clipboard.writeText(shareMessage)
       alert('共有内容をクリップボードにコピーしました！')
     }
   }
@@ -317,12 +306,12 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
               transition={{ delay: 0.5, type: 'spring', stiffness: 150 }}
               className="mb-3 sm:mb-4"
             >
-              <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl sm:rounded-3xl flex items-center justify-center p-2 shadow-pop-lg">
+              <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl sm:rounded-3xl flex items-center justify-center p-3 sm:p-4 shadow-pop-lg">
                 <Image
                   src={`/characters/${characterImagePath}`}
                   alt={character.name}
-                  width={160}
-                  height={160}
+                  width={224}
+                  height={224}
                   className="rounded-xl sm:rounded-2xl object-contain w-full h-full"
                   priority
                 />

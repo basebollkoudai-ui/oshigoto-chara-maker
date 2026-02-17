@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Search, ArrowLeft, Trash2 } from 'lucide-react'
+import { Heart, Search, ArrowLeft, ArrowRight, Trash2 } from 'lucide-react'
 import charactersData from '@/data/characters.json'
 import characterImages from '@/data/character-images.json'
 import type { CharactersData } from '@/types/quiz'
@@ -224,14 +224,23 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
           </div>
         )}
 
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="w-full bg-white text-gray-600 font-rounded font-bold py-4 px-6 rounded-2xl shadow-pop hover:shadow-pop-lg transition-all flex items-center justify-center gap-2"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          トップに戻る
-        </button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          <button
+            onClick={onBack}
+            className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-bold py-4 px-6 rounded-2xl shadow-pop-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+          >
+            自分も診断する
+            <ArrowRight className="w-5 h-5" />
+          </button>
+          <button
+            onClick={onBack}
+            className="w-full bg-white text-gray-600 font-rounded font-bold py-4 px-6 rounded-2xl shadow-pop hover:shadow-pop-lg transition-all flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            トップに戻る
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -35,16 +35,18 @@ export default function Home() {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">{/* MV Section - Character Showcase */}
         <div className="text-center mb-12">
-          <div className="mb-8 px-2 sm:px-4 flex justify-center">
-            <div className="relative w-full max-w-5xl">
-              <Image
-                src="/mv.png"
-                alt="お仕事キャラメーカー - 全16キャラクター"
-                width={1472}
-                height={704}
-                className="rounded-2xl sm:rounded-3xl shadow-pop-lg w-full h-auto"
-                priority
-              />
+          <div className="mb-10 px-2 sm:px-4 flex justify-center">
+            <div className="relative w-full max-w-4xl">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+                <Image
+                  src="/mv.png"
+                  alt="お仕事キャラメーカー - 全16キャラクター"
+                  width={1226}
+                  height={586}
+                  className="w-full h-auto"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
