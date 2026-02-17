@@ -31,13 +31,23 @@ export default function Home() {
         <div className="absolute bottom-10 right-5 md:right-10 w-20 h-20 md:w-28 md:h-28 bg-pastel-blue rounded-full opacity-50 blur-3xl animate-float" style={{ animationDelay: '0.5s' }}></div>
         <div className="absolute top-1/2 left-5 md:left-20 w-20 h-20 md:w-24 md:h-24 bg-accent-pink rounded-full opacity-30 blur-2xl animate-pulse-soft"></div>
         <div className="absolute top-1/3 right-1/3 w-24 h-24 md:w-32 md:h-32 bg-primary-300 rounded-full opacity-30 blur-2xl animate-pulse-soft" style={{ animationDelay: '1.5s' }}></div>
+
+        {/* 浮き上がる泡 */}
+        <div className="absolute bottom-0 left-[10%] w-12 h-12 bg-white/20 rounded-full blur-sm animate-bubble" style={{ animationDuration: '8s', animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 left-[25%] w-8 h-8 bg-pastel-pink/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 left-[45%] w-16 h-16 bg-pastel-blue/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-[60%] w-10 h-10 bg-pastel-purple/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '9s', animationDelay: '3s' }}></div>
+        <div className="absolute bottom-0 left-[75%] w-14 h-14 bg-pastel-mint/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '11s', animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-0 left-[90%] w-9 h-9 bg-pastel-yellow/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '10s', animationDelay: '4s' }}></div>
+        <div className="absolute bottom-0 right-[15%] w-11 h-11 bg-white/15 rounded-full blur-sm animate-bubble" style={{ animationDuration: '13s', animationDelay: '2.5s' }}></div>
+        <div className="absolute bottom-0 right-[35%] w-13 h-13 bg-pastel-peach/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '9.5s', animationDelay: '1.5s' }}></div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">{/* MV Section - Character Showcase */}
         <div className="text-center mb-12">
           <div className="mb-10 px-2 sm:px-4 flex justify-center">
             <div className="relative w-full max-w-4xl">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]">
                 <Image
                   src="/mv.png"
                   alt="お仕事キャラメーカー - 全16キャラクター"
@@ -50,26 +60,28 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mb-6 px-2">
-            <div className="inline-block bg-white/80 backdrop-blur-md rounded-3xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 shadow-pop-lg border-2 border-white">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent leading-tight">
+          <div className="mb-8 px-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold text-gray-800 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
+              <span className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent">
                 20の質問で
                 <br className="sm:hidden" />
                 あなたのキャラクターを
                 <br className="sm:hidden" />
                 診断
-              </h1>
-            </div>
+              </span>
+            </h1>
           </div>
 
           <Link
             href="/characters"
-            className="inline-block bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-pop border-2 border-white/80 mx-2 hover:bg-white/90 transition-all hover:shadow-pop-lg"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-white via-white to-white/95 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-[0_8px_24px_-6px_rgba(0,0,0,0.2)] border-2 border-white hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.3)] hover:scale-105 transition-all duration-300 group"
           >
-            <p className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2">
-              <List className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-accent-pink via-primary-500 to-accent-blue flex items-center justify-center shadow-md group-hover:rotate-12 transition-transform duration-300">
+              <List className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            <span className="text-gray-800 font-rounded font-bold text-sm sm:text-base md:text-lg">
               16種類のワークモンスターを見る
-            </p>
+            </span>
           </Link>
         </div>
 
