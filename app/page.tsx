@@ -33,17 +33,33 @@ export default function Home() {
         <div className="absolute top-1/3 right-1/3 w-24 h-24 md:w-32 md:h-32 bg-primary-300 rounded-full opacity-30 blur-2xl animate-pulse-soft" style={{ animationDelay: '1.5s' }}></div>
 
         {/* 浮き上がる泡 */}
-        <div className="absolute bottom-0 left-[10%] w-12 h-12 bg-white/20 rounded-full blur-sm animate-bubble" style={{ animationDuration: '8s', animationDelay: '0s' }}></div>
-        <div className="absolute bottom-0 left-[25%] w-8 h-8 bg-pastel-pink/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
-        <div className="absolute bottom-0 left-[45%] w-16 h-16 bg-pastel-blue/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
-        <div className="absolute bottom-0 left-[60%] w-10 h-10 bg-pastel-purple/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '9s', animationDelay: '3s' }}></div>
-        <div className="absolute bottom-0 left-[75%] w-14 h-14 bg-pastel-mint/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '11s', animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-0 left-[90%] w-9 h-9 bg-pastel-yellow/30 rounded-full blur-sm animate-bubble" style={{ animationDuration: '10s', animationDelay: '4s' }}></div>
-        <div className="absolute bottom-0 right-[15%] w-11 h-11 bg-white/15 rounded-full blur-sm animate-bubble" style={{ animationDuration: '13s', animationDelay: '2.5s' }}></div>
-        <div className="absolute bottom-0 right-[35%] w-13 h-13 bg-pastel-peach/25 rounded-full blur-sm animate-bubble" style={{ animationDuration: '9.5s', animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-0 left-[10%] w-16 h-16 bg-white/40 rounded-full blur-md animate-bubble" style={{ animationDuration: '8s', animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 left-[25%] w-12 h-12 bg-pastel-pink/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 left-[45%] w-20 h-20 bg-pastel-blue/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-[60%] w-14 h-14 bg-pastel-purple/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '9s', animationDelay: '3s' }}></div>
+        <div className="absolute bottom-0 left-[75%] w-18 h-18 bg-pastel-mint/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '11s', animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-0 left-[90%] w-13 h-13 bg-pastel-yellow/50 rounded-full blur-md animate-bubble" style={{ animationDuration: '10s', animationDelay: '4s' }}></div>
+        <div className="absolute bottom-0 right-[15%] w-15 h-15 bg-white/35 rounded-full blur-md animate-bubble" style={{ animationDuration: '13s', animationDelay: '2.5s' }}></div>
+        <div className="absolute bottom-0 right-[35%] w-17 h-17 bg-pastel-peach/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '9.5s', animationDelay: '1.5s' }}></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">{/* MV Section - Character Showcase */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">
+        {/* ロゴ・サービス名 */}
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="inline-block bg-white/90 backdrop-blur-md rounded-3xl px-6 sm:px-10 py-4 sm:py-6 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] border-2 border-white">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-accent-pink via-primary-500 to-accent-blue flex items-center justify-center shadow-lg">
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </div>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent">
+                ワークモンスター診断
+              </h1>
+            </div>
+            <p className="text-gray-600 text-xs sm:text-sm font-medium">あなたの働き方を16タイプに分類</p>
+          </div>
+        </div>
+
+        {/* MV Section - Character Showcase */}
         <div className="text-center mb-12">
           <div className="mb-10 px-2 sm:px-4 flex justify-center">
             <div className="relative w-full max-w-4xl">
@@ -122,7 +138,7 @@ export default function Home() {
             <div className="space-y-4">
               <button
                 onClick={() => setMode('quiz')}
-                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20"
+                className="w-full bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue text-white font-rounded font-extrabold py-4 sm:py-5 md:py-6 px-6 sm:px-8 rounded-full text-lg sm:text-xl md:text-2xl shadow-pop-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 border-2 border-white border-opacity-20 animate-pulse-scale hover:animate-none"
               >
                 キャラクターを生成する
                 <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
