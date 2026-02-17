@@ -43,22 +43,21 @@ export default function Home() {
         <div className="absolute bottom-0 right-[35%] w-17 h-17 bg-pastel-peach/45 rounded-full blur-md animate-bubble" style={{ animationDuration: '9.5s', animationDelay: '1.5s' }}></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">
-        {/* ロゴ・サービス名 */}
-        <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-block bg-white/90 backdrop-blur-md rounded-3xl px-6 sm:px-10 py-4 sm:py-6 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] border-2 border-white">
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-accent-pink via-primary-500 to-accent-blue flex items-center justify-center shadow-lg">
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent">
-                ワークモンスター診断
-              </h1>
+      {/* ヘッダー */}
+      <header className="relative z-20 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-accent-pink via-primary-500 to-accent-blue flex items-center justify-center shadow-md">
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
-            <p className="text-gray-600 text-xs sm:text-sm font-medium">あなたの働き方を16タイプに分類</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent">
+              ワークモンスター診断
+            </h1>
           </div>
         </div>
+      </header>
 
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">
         {/* MV Section - Character Showcase */}
         <div className="text-center mb-12">
           <div className="mb-10 px-2 sm:px-4 flex justify-center">
