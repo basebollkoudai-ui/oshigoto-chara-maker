@@ -32,27 +32,29 @@ export default function Home() {
         <div className="absolute top-1/2 left-5 md:left-20 w-20 h-20 md:w-24 md:h-24 bg-accent-pink rounded-full opacity-30 blur-2xl animate-pulse-soft"></div>
         <div className="absolute top-1/3 right-1/3 w-24 h-24 md:w-32 md:h-32 bg-primary-300 rounded-full opacity-30 blur-2xl animate-pulse-soft" style={{ animationDelay: '1.5s' }}></div>
 
-        {/* 浮き上がる泡 - 白枠タイプ */}
-        <div className="absolute bottom-0 left-[8%] w-16 h-16 rounded-full border-2 border-white/60 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0s' }}></div>
-        <div className="absolute bottom-0 left-[18%] w-12 h-12 rounded-full border-2 border-white/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
-        <div className="absolute bottom-0 left-[28%] w-20 h-20 rounded-full border-2 border-white/50 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-0 left-[38%] w-14 h-14 rounded-full border-2 border-white/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2s' }}></div>
-        <div className="absolute bottom-0 left-[48%] w-18 h-18 rounded-full border-2 border-white/55 animate-bubble" style={{ animationDuration: '5s', animationDelay: '1.5s' }}></div>
-        <div className="absolute bottom-0 left-[58%] w-16 h-16 rounded-full border-2 border-white/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.8s' }}></div>
-        <div className="absolute bottom-0 left-[68%] w-13 h-13 rounded-full border-2 border-white/60 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '2.5s' }}></div>
-        <div className="absolute bottom-0 left-[78%] w-15 h-15 rounded-full border-2 border-white/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.2s' }}></div>
-        <div className="absolute bottom-0 left-[88%] w-17 h-17 rounded-full border-2 border-white/50 animate-bubble" style={{ animationDuration: '5s', animationDelay: '3s' }}></div>
+        {/* 浮き上がる泡 - ピンク系 */}
+        <div className="absolute bottom-0 left-[8%] w-16 h-16 rounded-full border-2 border-pink-300/60 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 left-[28%] w-20 h-20 rounded-full border-2 border-pink-400/50 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-0 left-[48%] w-18 h-18 rounded-full border-2 border-pink-300/55 animate-bubble" style={{ animationDuration: '5s', animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-0 left-[68%] w-13 h-13 rounded-full border-2 border-pink-400/60 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '2.5s' }}></div>
+        <div className="absolute bottom-0 left-[88%] w-17 h-17 rounded-full border-2 border-pink-300/50 animate-bubble" style={{ animationDuration: '5s', animationDelay: '3s' }}></div>
 
-        {/* 浮き上がる泡 - 黒枠タイプ */}
-        <div className="absolute bottom-0 left-[13%] w-14 h-14 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.3s' }}></div>
-        <div className="absolute bottom-0 left-[23%] w-18 h-18 rounded-full border-2 border-gray-800/25 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1.8s' }}></div>
-        <div className="absolute bottom-0 left-[33%] w-12 h-12 rounded-full border-2 border-gray-800/35 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0.7s' }}></div>
-        <div className="absolute bottom-0 left-[43%] w-16 h-16 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2.2s' }}></div>
-        <div className="absolute bottom-0 left-[53%] w-13 h-13 rounded-full border-2 border-gray-800/28 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '1.3s' }}></div>
-        <div className="absolute bottom-0 left-[63%] w-19 h-19 rounded-full border-2 border-gray-800/32 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.4s' }}></div>
-        <div className="absolute bottom-0 left-[73%] w-15 h-15 rounded-full border-2 border-gray-800/27 animate-bubble" style={{ animationDuration: '5s', animationDelay: '2.8s' }}></div>
-        <div className="absolute bottom-0 left-[83%] w-14 h-14 rounded-full border-2 border-gray-800/30 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.6s' }}></div>
-        <div className="absolute bottom-0 left-[93%] w-16 h-16 rounded-full border-2 border-gray-800/25 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '3.2s' }}></div>
+        {/* 浮き上がる泡 - ブルー系 */}
+        <div className="absolute bottom-0 left-[18%] w-12 h-12 rounded-full border-2 border-blue-300/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-[38%] w-14 h-14 rounded-full border-2 border-blue-400/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2s' }}></div>
+        <div className="absolute bottom-0 left-[58%] w-16 h-16 rounded-full border-2 border-blue-300/70 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.8s' }}></div>
+        <div className="absolute bottom-0 left-[78%] w-15 h-15 rounded-full border-2 border-blue-400/65 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.2s' }}></div>
+
+        {/* 浮き上がる泡 - パープル系 */}
+        <div className="absolute bottom-0 left-[13%] w-14 h-14 rounded-full border-2 border-purple-300/50 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '0.3s' }}></div>
+        <div className="absolute bottom-0 left-[23%] w-18 h-18 rounded-full border-2 border-purple-400/45 animate-bubble" style={{ animationDuration: '6s', animationDelay: '1.8s' }}></div>
+        <div className="absolute bottom-0 left-[33%] w-12 h-12 rounded-full border-2 border-purple-300/55 animate-bubble" style={{ animationDuration: '5s', animationDelay: '0.7s' }}></div>
+        <div className="absolute bottom-0 left-[43%] w-16 h-16 rounded-full border-2 border-purple-400/50 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '2.2s' }}></div>
+        <div className="absolute bottom-0 left-[53%] w-13 h-13 rounded-full border-2 border-purple-300/48 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '1.3s' }}></div>
+        <div className="absolute bottom-0 left-[63%] w-19 h-19 rounded-full border-2 border-purple-400/52 animate-bubble" style={{ animationDuration: '6s', animationDelay: '0.4s' }}></div>
+        <div className="absolute bottom-0 left-[73%] w-15 h-15 rounded-full border-2 border-purple-300/47 animate-bubble" style={{ animationDuration: '5s', animationDelay: '2.8s' }}></div>
+        <div className="absolute bottom-0 left-[83%] w-14 h-14 rounded-full border-2 border-purple-400/50 animate-bubble" style={{ animationDuration: '6.5s', animationDelay: '1.6s' }}></div>
+        <div className="absolute bottom-0 left-[93%] w-16 h-16 rounded-full border-2 border-purple-300/45 animate-bubble" style={{ animationDuration: '5.5s', animationDelay: '3.2s' }}></div>
       </div>
 
       {/* ヘッダー */}
@@ -72,9 +74,21 @@ export default function Home() {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 md:py-12">
         {/* MV Section - Character Showcase */}
         <div className="text-center mb-12">
-          <div className="mb-10 px-2 sm:px-4 flex justify-center">
-            <div className="relative w-full max-w-4xl">
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]">
+          <div className="mb-8 px-2">
+            <div className="inline-block bg-white/80 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-3 sm:py-4 shadow-lg mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent leading-tight">
+                20の質問で
+                <br className="sm:hidden" />
+                あなたのキャラクターを
+                <br className="sm:hidden" />
+                診断
+              </h2>
+            </div>
+          </div>
+
+          <div className="mb-8 px-2 sm:px-4 flex justify-center">
+            <div className="relative w-full max-w-3xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.25)]">
                 <Image
                   src="/mv.png"
                   alt="お仕事キャラメーカー - 全16キャラクター"
@@ -85,18 +99,6 @@ export default function Home() {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="mb-8 px-2">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-rounded font-extrabold text-gray-800 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
-              <span className="bg-gradient-to-r from-accent-pink via-primary-500 to-accent-blue bg-clip-text text-transparent">
-                20の質問で
-                <br className="sm:hidden" />
-                あなたのキャラクターを
-                <br className="sm:hidden" />
-                診断
-              </span>
-            </h1>
           </div>
 
           <Link
@@ -133,10 +135,6 @@ export default function Home() {
                   <p className="flex items-center font-medium">
                     <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent-blue rounded-full mr-2 sm:mr-3 shadow-sm flex-shrink-0"></span>
                     所要時間: 約3分
-                  </p>
-                  <p className="flex items-center font-medium">
-                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent-yellow rounded-full mr-2 sm:mr-3 shadow-sm flex-shrink-0"></span>
-                    直感で答えてみてください
                   </p>
                 </div>
                 <p className="text-gray-600 text-xs sm:text-sm italic mt-3 md:mt-4 bg-white bg-opacity-60 rounded-xl md:rounded-2xl p-2.5 sm:p-3">

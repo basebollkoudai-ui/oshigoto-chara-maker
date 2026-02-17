@@ -128,15 +128,6 @@ const QuestionCard = ({
         </div>
       </motion.div>
 
-      {/* Helper Text */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="text-center text-gray-500 text-xs sm:text-sm mt-6 sm:mt-8 md:mt-10 font-medium bg-gray-50 rounded-full px-4 sm:px-6 py-2 sm:py-3 inline-block w-full"
-      >
-        ✨ 直感で選んでください。正解・不正解はありません。
-      </motion.p>
     </div>
   )
 }
