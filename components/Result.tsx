@@ -29,9 +29,10 @@ import { getCompatibility } from '@/utils/compatibility'
 interface ResultProps {
   scores: Scores
   answerHistory: AnswerHistory[]
+  mbtiType?: string | null
 }
 
-const Result = ({ scores, answerHistory }: ResultProps) => {
+const Result = ({ scores, answerHistory, mbtiType }: ResultProps) => {
   const [aiAdvice, setAiAdvice] = useState<string>('')
   const [isLoadingAdvice, setIsLoadingAdvice] = useState(false)
   const [adviceError, setAdviceError] = useState<string>('')
@@ -158,12 +159,8 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
 
   const handleTwitterShare = () => {
     const diagnosticUrl = window.location.origin
-    const imageUrl = `${diagnosticUrl}/api/og-image?code=${encodeURIComponent(
-      character.code
-    )}&name=${encodeURIComponent(character.name)}&subtitle=${encodeURIComponent(
-      character.subtitle
-    )}&icon=${encodeURIComponent(character.icon)}`
-    const text = `私のお仕事キャラメーカー診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#お仕事キャラメーカー\n\nあなたも診断してみよう👇\n${diagnosticUrl}\n\n${imageUrl}`
+    const resultUrl = `${diagnosticUrl}/result/${typeCode}`
+    const text = `私のワークモンスター診断結果は「${character.name}」でした！\n${character.subtitle}\n\n#ワークモンスター診断\n\nあなたも診断してみよう👇\n${resultUrl}`
     const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`
     window.open(url, '_blank')
   }
@@ -194,31 +191,34 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
       ...result,
       partnerName: partnerChar.name,
       partnerIcon: partnerChar.icon,
+      partnerCode: partnerCharCode,
     })
     setShowCompatibility(true)
   }
 
   const handleShareWithImage = async () => {
     const diagnosticUrl = window.location.origin
-    const resultUrl = `${diagnosticUrl}`
+    const resultUrl = `${diagnosticUrl}/result/${typeCode}`
 
     // 特徴を抽出（最大2つ）
     const features = character.strengths.slice(0, 2)
     const hashtags = features.map(f => `#${f.replace(/\s+/g, '')}`).join(' ')
 
-    const shareMessage = `私の診断結果は、「${character.name}」です！\n私との仕事の相性を測ってみませんか？\n\n${resultUrl}\n\n#ワークモンスター ${hashtags}`
+    const shareText = `私の診断結果は、「${character.name}」です！\n私との仕事の相性を測ってみませんか？\n\n#ワークモンスター診断 ${hashtags}`
 
     if (navigator.share) {
       try {
         await navigator.share({
-          text: shareMessage,
+          title: `ワークモンスター診断 - ${character.name}`,
+          text: shareText,
+          url: resultUrl,
         })
       } catch (error) {
         console.log('Share cancelled or failed:', error)
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(shareMessage)
+      navigator.clipboard.writeText(`${shareText}\n\n${resultUrl}`)
       alert('共有内容をクリップボードにコピーしました！')
     }
   }
@@ -264,7 +264,7 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
           <h1 className="text-gray-800 text-2xl sm:text-3xl md:text-4xl font-rounded font-bold mb-2">
             診断結果
           </h1>
-          <p className="text-gray-600 text-sm sm:text-base">あなたのお仕事キャラクターが明らかになりました</p>
+          <p className="text-gray-600 text-sm sm:text-base">あなたのワークモンスターが明らかになりました</p>
         </motion.div>
 
         {/* Main Result Card */}
@@ -600,9 +600,25 @@ const Result = ({ scores, answerHistory }: ResultProps) => {
             >
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center gap-3 mb-3">
-                  <span className="text-4xl">{character.icon}</span>
-                  <span className="text-2xl">×</span>
-                  <span className="text-4xl">{compatibilityResult.partnerIcon}</span>
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                    <Image
+                      src={`/characters/${characterImagePath}`}
+                      alt={character.name}
+                      width={96}
+                      height={96}
+                      className="rounded-lg object-contain w-full h-full"
+                    />
+                  </div>
+                  <span className="text-2xl font-bold">×</span>
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                    <Image
+                      src={`/characters/${imageMap[compatibilityResult.partnerCode] || 'character-01.png'}`}
+                      alt={compatibilityResult.partnerName}
+                      width={96}
+                      height={96}
+                      className="rounded-lg object-contain w-full h-full"
+                    />
+                  </div>
                 </div>
                 <h4 className="text-xl sm:text-2xl font-rounded font-bold text-gray-800 mb-2">
                   {compatibilityResult.message}

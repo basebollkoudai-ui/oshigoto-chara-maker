@@ -66,6 +66,7 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
       ...result,
       partnerName: partnerChar.name,
       partnerIcon: partnerChar.icon,
+      partnerCode: partnerCharCode,
     })
   }
 
@@ -88,19 +89,19 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
         {/* Saved Characters */}
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-pop-lg p-6 sm:p-8 mb-6">
           <h2 className="text-lg sm:text-xl font-rounded font-bold text-gray-800 mb-4">
-            あなたのキャラクター
+            あなたのワークモンスター
           </h2>
 
           {savedCharacters.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-600 mb-4">
-                まだキャラクターを生成していません
+                まだモンスターを生成していません
               </p>
               <button
                 onClick={onBack}
                 className="bg-accent-pink text-white font-rounded font-bold py-3 px-6 rounded-xl shadow-pop hover:shadow-pop-lg transition-all"
               >
-                キャラクターを生成する
+                モンスターを生成する
               </button>
             </div>
           ) : (
@@ -184,7 +185,7 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                       <Image
-                        src={`/characters/${imageMap[selectedCharacter.code]}`}
+                        src={`/characters/${imageMap[selectedCharacter.code] || 'character-01.png'}`}
                         alt={selectedCharacter.name}
                         width={96}
                         height={96}
@@ -194,7 +195,7 @@ const CompatibilityCheck = ({ onBack }: CompatibilityCheckProps) => {
                     <span className="text-2xl font-bold">×</span>
                     <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                       <Image
-                        src={`/characters/${imageMap[compatibilityResult.partnerCode]}`}
+                        src={`/characters/${imageMap[compatibilityResult.partnerCode] || imageMap[partnerCode.split('-')[0]] || 'character-01.png'}`}
                         alt={compatibilityResult.partnerName}
                         width={96}
                         height={96}

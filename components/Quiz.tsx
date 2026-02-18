@@ -5,10 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import QuestionCard from './QuestionCard'
 import ProgressBar from './ProgressBar'
 import Result from './Result'
-import questionsData from '@/data/questions.json'
-import type { Question, Scores, QuizData, AnswerHistory } from '@/types/quiz'
+import MBTISelector from './MBTISelector'
+import branchingQuestionsData from '@/data/questions-branching.json'
+import { getInitialQuestions, selectNextQuestion } from '@/utils/questionSelector'
+import type { Question, Scores, BranchingQuizData, AnswerHistory } from '@/types/quiz'
 
 const Quiz = () => {
+  const [mbtiType, setMbtiType] = useState<string | null>(null)
+  const [showMBTI, setShowMBTI] = useState(true)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [scores, setScores] = useState<Scores>({
     actionStyle: 0,
@@ -19,10 +23,20 @@ const Quiz = () => {
   const [answerHistory, setAnswerHistory] = useState<AnswerHistory[]>([])
   const [showResult, setShowResult] = useState(false)
   const [direction, setDirection] = useState(1)
+  const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([])
+  const [isInitialized, setIsInitialized] = useState(false)
 
-  const quizData = questionsData as QuizData
-  const questions = quizData.questions
-  const totalQuestions = questions.length
+  const quizData = branchingQuestionsData as BranchingQuizData
+  const totalQuestions = 20
+
+  // Initialize first 3 questions when MBTI selection is complete
+  useEffect(() => {
+    if (!showMBTI && !isInitialized) {
+      const initialQuestions = getInitialQuestions(quizData)
+      setSelectedQuestions(initialQuestions)
+      setIsInitialized(true)
+    }
+  }, [showMBTI, isInitialized, quizData])
 
   const handleAnswer = (optionScores: any, selectedAnswer: string) => {
     // Update scores
@@ -35,17 +49,31 @@ const Quiz = () => {
     setScores(newScores)
 
     // Record answer history
-    const currentQ = questions[currentQuestion]
+    const currentQ = selectedQuestions[currentQuestion]
     const newAnswer: AnswerHistory = {
-      questionId: currentQ.id,
+      questionId: typeof currentQ.id === 'number' ? currentQ.id : parseInt(currentQ.id) || currentQuestion + 1,
       question: currentQ.question,
       selectedAnswer: selectedAnswer,
       scores: optionScores,
     }
-    setAnswerHistory([...answerHistory, newAnswer])
+    const updatedHistory = [...answerHistory, newAnswer]
+    setAnswerHistory(updatedHistory)
 
     // Move to next question or show result
     if (currentQuestion < totalQuestions - 1) {
+      // Select next question based on current context
+      const nextQuestion = selectNextQuestion(
+        {
+          mbtiType,
+          currentScores: newScores,
+          answeredQuestions: selectedQuestions.slice(0, currentQuestion + 1),
+          questionNumber: currentQuestion + 2, // +2 because we're selecting for the next slot (1-indexed)
+          answerHistory: updatedHistory,
+        },
+        quizData
+      )
+
+      setSelectedQuestions([...selectedQuestions, nextQuestion])
       setDirection(1)
       setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1)
@@ -64,8 +92,22 @@ const Quiz = () => {
     }
   }
 
+  const handleMBTISelect = (mbti: string) => {
+    setMbtiType(mbti)
+    setShowMBTI(false)
+  }
+
+  const handleMBTISkip = () => {
+    setMbtiType(null)
+    setShowMBTI(false)
+  }
+
+  if (showMBTI) {
+    return <MBTISelector onSelect={handleMBTISelect} onSkip={handleMBTISkip} />
+  }
+
   if (showResult) {
-    return <Result scores={scores} answerHistory={answerHistory} />
+    return <Result scores={scores} answerHistory={answerHistory} mbtiType={mbtiType} />
   }
 
   return (
@@ -103,22 +145,33 @@ const Quiz = () => {
 
         {/* Question Card */}
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestion}
-            initial={{ x: direction > 0 ? 100 : -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction > 0 ? -100 : 100, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <QuestionCard
-              question={questions[currentQuestion]}
-              questionNumber={currentQuestion + 1}
-              totalQuestions={totalQuestions}
-              onAnswer={handleAnswer}
-              onPrevious={handlePrevious}
-              canGoBack={currentQuestion > 0}
-            />
-          </motion.div>
+          {selectedQuestions[currentQuestion] ? (
+            <motion.div
+              key={currentQuestion}
+              initial={{ x: direction > 0 ? 100 : -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: direction > 0 ? -100 : 100, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <QuestionCard
+                question={selectedQuestions[currentQuestion]}
+                questionNumber={currentQuestion + 1}
+                totalQuestions={totalQuestions}
+                onAnswer={handleAnswer}
+                onPrevious={handlePrevious}
+                canGoBack={currentQuestion > 0}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center text-white font-rounded text-lg py-20"
+            >
+              読み込み中...
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </div>

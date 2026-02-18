@@ -1,0 +1,1813 @@
+{
+  "axes": {
+    "actionStyle": {
+      "name": "行動力軸",
+      "positive": "I",
+      "positiveLabel": "猪突型（とりあえず動く）",
+      "negative": "S",
+      "negativeLabel": "石橋型（慎重派）"
+    },
+    "socialStyle": {
+      "name": "人間関係軸",
+      "positive": "G",
+      "positiveLabel": "群れ型（チーム好き）",
+      "negative": "T",
+      "negativeLabel": "単独型（一匹狼）"
+    },
+    "motivation": {
+      "name": "モチベーション軸",
+      "positive": "Y",
+      "positiveLabel": "野心型（出世志向）",
+      "negative": "A",
+      "negativeLabel": "安定型（平穏志向）"
+    },
+    "thinking": {
+      "name": "仕事観軸",
+      "positive": "SE",
+      "positiveLabel": "戦略型（計画的）",
+      "negative": "CH",
+      "negativeLabel": "直感型（ノリとセンス）"
+    }
+  },
+  "branchingRules": {
+    "mbtiInfluence": {
+      "E": { "preferTags": ["social", "collaboration", "networking"], "weight": 0.3 },
+      "I": { "preferTags": ["analysis", "individual", "focus"], "weight": 0.3 },
+      "N": { "preferTags": ["creative", "strategic", "vision"], "weight": 0.2 },
+      "S": { "preferTags": ["practical", "detail", "execution"], "weight": 0.2 },
+      "T": { "preferTags": ["logic", "objective", "data"], "weight": 0.3 },
+      "F": { "preferTags": ["people", "values", "harmony"], "weight": 0.3 },
+      "J": { "preferTags": ["planning", "organized", "structure"], "weight": 0.2 },
+      "P": { "preferTags": ["flexible", "spontaneous", "adaptive"], "weight": 0.2 }
+    },
+    "scoreThresholds": {
+      "early": 2,
+      "mid": 4,
+      "late": 6
+    }
+  },
+  "axisBalance": {
+    "actionStyle": { "min": 12, "max": 15, "target": 13 },
+    "socialStyle": { "min": 12, "max": 15, "target": 13 },
+    "motivation": { "min": 13, "max": 16, "target": 14 },
+    "thinking": { "min": 10, "max": 13, "target": 11 }
+  },
+  "questionSlots": [
+    {
+      "slotId": 1,
+      "category": "work_approach",
+      "baseQuestion": {
+        "id": 1,
+        "question": "新しいプロジェクトが始まった。あなたの最初の行動は？",
+        "tags": ["action", "planning", "social"],
+        "options": [
+          {
+            "text": "とりあえず手を動かしてみる。考えるより動け！",
+            "scores": {"actionStyle": 2, "thinking": -1}
+          },
+          {
+            "text": "まずは詳細な計画書を作成する",
+            "scores": {"actionStyle": -2, "thinking": 2}
+          },
+          {
+            "text": "チームメンバーと飲みに行って方針を話し合う",
+            "scores": {"actionStyle": 1, "socialStyle": 2, "thinking": -1}
+          },
+          {
+            "text": "類似プロジェクトの事例を一人で調べまくる",
+            "scores": {"actionStyle": -1, "socialStyle": -2, "thinking": 1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "1b",
+          "question": "仕事の進め方として、あなたに一番近いのは？",
+          "tags": ["action", "planning", "individual"],
+          "options": [
+            {
+              "text": "走りながら考える。完璧じゃなくても動き出す",
+              "scores": {"actionStyle": 2, "thinking": -2}
+            },
+            {
+              "text": "リスクを洗い出してから、慎重に一歩ずつ進む",
+              "scores": {"actionStyle": -2, "thinking": 2}
+            },
+            {
+              "text": "仲間の意見を聞きながら、みんなで方向を決める",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "一人で徹底的にリサーチして、最善策を見つける",
+              "scores": {"socialStyle": -2, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        },
+        {
+          "id": "1c",
+          "question": "複数の仕事を抱えたとき、どう優先順位をつける？",
+          "tags": ["planning", "logic", "action"],
+          "options": [
+            {
+              "text": "締め切りが近いものから、とにかくこなしていく",
+              "scores": {"actionStyle": 2, "thinking": -1}
+            },
+            {
+              "text": "重要度×緊急度のマトリクスで論理的に整理",
+              "scores": {"thinking": 2, "actionStyle": -1}
+            },
+            {
+              "text": "チームで相談して、誰が何をやるか分担する",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "できるだけ断って、今のタスクに集中する",
+              "scores": {"socialStyle": -1, "motivation": -1, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 2,
+      "category": "challenge_handling",
+      "baseQuestion": {
+        "id": 2,
+        "question": "上司から「無理めな案件」を振られた。どうする？",
+        "tags": ["action", "negotiation", "social"],
+        "options": [
+          {
+            "text": "「やります！」即答。やり方は後で考える",
+            "scores": {"actionStyle": 2, "motivation": 1}
+          },
+          {
+            "text": "リスクと必要リソースを詳細に説明して交渉",
+            "scores": {"actionStyle": -1, "thinking": 2, "motivation": 1}
+          },
+          {
+            "text": "「ちょっと厳しいですね...」と断る方向で調整",
+            "scores": {"actionStyle": -2, "motivation": -2}
+          },
+          {
+            "text": "とりあえず引き受けて、こっそり同僚に助けを求める",
+            "scores": {"actionStyle": 1, "socialStyle": 1, "thinking": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "2b",
+          "question": "明らかに無謀な目標を上から設定された。どう対応する？",
+          "tags": ["action", "negotiation", "motivation"],
+          "options": [
+            {
+              "text": "燃える！無理を可能にするのが仕事だ",
+              "scores": {"actionStyle": 2, "motivation": 2}
+            },
+            {
+              "text": "達成可能な範囲を示して、目標を交渉し直す",
+              "scores": {"thinking": 2, "actionStyle": -1, "motivation": 1}
+            },
+            {
+              "text": "チームに相談して、全員で考える",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "とりあえずやってみて、ダメなら報告する",
+              "scores": {"actionStyle": 1, "thinking": -2, "motivation": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        },
+        {
+          "id": "2c",
+          "question": "苦手なタイプの仕事を頼まれた。あなたは？",
+          "tags": ["action", "individual", "motivation"],
+          "options": [
+            {
+              "text": "苦手だからこそ挑戦！成長のチャンスだ",
+              "scores": {"actionStyle": 2, "motivation": 2}
+            },
+            {
+              "text": "断るための正当な理由を考える",
+              "scores": {"actionStyle": -2, "motivation": -1}
+            },
+            {
+              "text": "得意な人に一部手伝ってもらいながらやる",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "効率化できる方法を徹底的に調べてから始める",
+              "scores": {"thinking": 2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 3,
+      "category": "social_interaction",
+      "baseQuestion": {
+        "id": 3,
+        "question": "金曜夜、急な飲み会のお誘い。あなたは？",
+        "tags": ["social", "networking", "balance"],
+        "options": [
+          {
+            "text": "「行きます！」即決。人脈は財産だ",
+            "scores": {"socialStyle": 2, "actionStyle": 1}
+          },
+          {
+            "text": "メンバーと目的を確認してから判断",
+            "scores": {"thinking": 1, "socialStyle": -1}
+          },
+          {
+            "text": "「すみません、予定が...」と丁重にお断り",
+            "scores": {"socialStyle": -2, "motivation": -1}
+          },
+          {
+            "text": "渋々参加するが、1時間で帰る算段を立てる",
+            "scores": {"socialStyle": -1, "thinking": 1, "motivation": -1}
+          }
+        ]
+      }
+    },
+    {
+      "slotId": 4,
+      "category": "work_values",
+      "baseQuestion": {
+        "id": 4,
+        "question": "あなたの理想の働き方は？",
+        "tags": ["motivation", "values", "balance"],
+        "options": [
+          {
+            "text": "バリバリ成果出して昇進・年収アップ！",
+            "scores": {"motivation": 2, "actionStyle": 1}
+          },
+          {
+            "text": "定時で帰って趣味を楽しむ。仕事は生活の手段",
+            "scores": {"motivation": -2, "actionStyle": -1}
+          },
+          {
+            "text": "チームで協力して、みんなで成長したい",
+            "scores": {"socialStyle": 2, "motivation": 0}
+          },
+          {
+            "text": "自分のスキルを磨いて、市場価値を高める",
+            "scores": {"socialStyle": -1, "motivation": 1, "thinking": 1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "4b",
+          "question": "チームで大きな目標を達成した後、あなたが一番嬉しいのは？",
+          "tags": ["social", "collaboration", "values"],
+          "options": [
+            {
+              "text": "チーム全員で成功を分かち合えたこと",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "自分の貢献が評価されて昇進のチャンスが来たこと",
+              "scores": {"motivation": 2, "socialStyle": -1}
+            },
+            {
+              "text": "困難な課題を解決できた達成感",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "プロジェクトが終わって休息できること",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        },
+        {
+          "id": "4c",
+          "question": "仕事のモチベーションが上がるのはどんな時？",
+          "tags": ["motivation", "values", "individual"],
+          "options": [
+            {
+              "text": "目に見える形で成果が出た時",
+              "scores": {"motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "仲間から「ありがとう」と感謝された時",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "新しいスキルや知識が身についた時",
+              "scores": {"thinking": 2, "motivation": 1}
+            },
+            {
+              "text": "特にない。モチベーションとかよくわからない",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 5,
+      "category": "deadline_pressure",
+      "baseQuestion": {
+        "id": 5,
+        "question": "締め切り前日、タスクが終わらない！どうする？",
+        "tags": ["action", "social", "planning"],
+        "options": [
+          {
+            "text": "徹夜で気合で終わらせる。寝なければいける",
+            "scores": {"actionStyle": 2, "thinking": -2, "motivation": 1}
+          },
+          {
+            "text": "チームに助けを求めて、分担して乗り切る",
+            "scores": {"socialStyle": 2, "thinking": 1}
+          },
+          {
+            "text": "上司に状況報告して期限延長を交渉",
+            "scores": {"thinking": 2, "actionStyle": -1, "motivation": -1}
+          },
+          {
+            "text": "出せる範囲で出す。完璧主義は捨てる",
+            "scores": {"actionStyle": 1, "thinking": -1, "motivation": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "5b",
+          "question": "個人タスクの締め切りが迫っているが、質よりスピードが求められている。あなたは？",
+          "tags": ["action", "individual", "execution"],
+          "options": [
+            {
+              "text": "とにかく手を動かして形にする。後で調整すればいい",
+              "scores": {"actionStyle": 2, "thinking": -2}
+            },
+            {
+              "text": "最低限の品質基準を満たす範囲で最速で仕上げる",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "誰かに相談して、どこまで妥協すべきか確認する",
+              "scores": {"socialStyle": 1, "thinking": 1}
+            },
+            {
+              "text": "スピード優先に納得できず、自分の基準で進める",
+              "scores": {"thinking": 1, "actionStyle": -1, "motivation": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 4
+            }
+          }
+        },
+        {
+          "id": "5c",
+          "question": "仕事が重なって完全にキャパオーバー。どう乗り越える？",
+          "tags": ["action", "social", "planning"],
+          "options": [
+            {
+              "text": "全力で走り続ける。やるしかないでしょ",
+              "scores": {"actionStyle": 2, "motivation": 2}
+            },
+            {
+              "text": "タスクを整理して、優先度の低いものを削ぎ落とす",
+              "scores": {"thinking": 2, "actionStyle": -1}
+            },
+            {
+              "text": "上司や同僚に正直に言って助けてもらう",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "残業は最小限。自分のペースを崩さない",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 6,
+      "category": "lunch_time",
+      "baseQuestion": {
+        "id": 6,
+        "question": "ランチタイム、あなたはどう過ごす？",
+        "tags": ["social", "balance", "individual"],
+        "options": [
+          {
+            "text": "同僚と社食でワイワイ。情報交換も兼ねて",
+            "scores": {"socialStyle": 2}
+          },
+          {
+            "text": "一人で好きな店に行く。至福の時間",
+            "scores": {"socialStyle": -2, "motivation": -1}
+          },
+          {
+            "text": "デスクでサクッと食べて仕事を進める",
+            "scores": {"socialStyle": -1, "actionStyle": 1, "motivation": 1}
+          },
+          {
+            "text": "カフェで読書や勉強。自己投資の時間",
+            "scores": {"socialStyle": -1, "thinking": 1, "motivation": 1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "6b",
+          "question": "仕事の合間のリフレッシュ方法といえば？",
+          "tags": ["individual", "balance", "focus"],
+          "options": [
+            {
+              "text": "同僚とおしゃべり。会話がエネルギーになる",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "ヘッドフォンして音楽聴きながら一人時間",
+              "scores": {"socialStyle": -2, "thinking": 1}
+            },
+            {
+              "text": "軽く体を動かす。散歩やストレッチ",
+              "scores": {"actionStyle": 1, "motivation": 1, "socialStyle": -1}
+            },
+            {
+              "text": "SNSチェックや情報収集。常にアップデート",
+              "scores": {"thinking": 1, "socialStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 5
+            }
+          }
+        },
+        {
+          "id": "6c",
+          "question": "職場での人付き合いで、あなたが大切にしていることは？",
+          "tags": ["social", "networking", "harmony"],
+          "options": [
+            {
+              "text": "誰とでも仲良く、雰囲気よく働けること",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "仕事上の関係は最低限でいい。プライベートは別",
+              "scores": {"socialStyle": -2, "thinking": 1}
+            },
+            {
+              "text": "信頼できる少数の仲間さえいれば十分",
+              "scores": {"socialStyle": -1, "thinking": 1}
+            },
+            {
+              "text": "人脈は資産。積極的につながりを作る",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 7,
+      "category": "conflict_handling",
+      "baseQuestion": {
+        "id": 7,
+        "question": "会議中、明らかに間違った意見が出た。あなたは？",
+        "tags": ["social", "logic", "harmony"],
+        "options": [
+          {
+            "text": "即座に「それ違いますよ」と指摘する",
+            "scores": {"actionStyle": 2, "socialStyle": -1, "thinking": 1}
+          },
+          {
+            "text": "空気を読んでスルー。波風立てたくない",
+            "scores": {"actionStyle": -2, "socialStyle": 1, "motivation": -1}
+          },
+          {
+            "text": "データを示して論理的に別案を提示",
+            "scores": {"thinking": 2, "motivation": 1}
+          },
+          {
+            "text": "会議後にそっと個別で伝える",
+            "scores": {"socialStyle": 1, "thinking": 1, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "7b",
+          "question": "チームメンバーの提案に致命的な欠陥を見つけた。しかし本人は自信満々。どうする？",
+          "tags": ["people", "harmony", "logic"],
+          "options": [
+            {
+              "text": "本人のメンツを立てつつ、別の角度から問題点を気づかせる",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "事実は事実。はっきりと問題点を指摘する",
+              "scores": {"thinking": 2, "socialStyle": -2, "actionStyle": 1}
+            },
+            {
+              "text": "上司に相談して、上司から指摘してもらう",
+              "scores": {"socialStyle": 1, "actionStyle": -1}
+            },
+            {
+              "text": "チーム全体で議論する場を設けて、みんなで気づく流れを作る",
+              "scores": {"socialStyle": 2, "thinking": 1, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 6
+            }
+          }
+        },
+        {
+          "id": "7c",
+          "question": "意見が真っ二つに割れて、議論が止まった。あなたなら？",
+          "tags": ["logic", "action", "social"],
+          "options": [
+            {
+              "text": "自分の意見を押し通す。正しいと思ったら引かない",
+              "scores": {"actionStyle": 2, "thinking": 1, "socialStyle": -1}
+            },
+            {
+              "text": "データや事例を持ち出して、客観的に判断する",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "まず相手の意見を徹底的に聞く。理解してから話す",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "多数決でサクッと決める。議論が長引くのが嫌",
+              "scores": {"actionStyle": 1, "thinking": -1, "motivation": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 6
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 8,
+      "category": "career_opportunity",
+      "baseQuestion": {
+        "id": 8,
+        "question": "転職サイトからスカウトが来た。今より年収50万アップ。どうする？",
+        "tags": ["motivation", "planning", "action"],
+        "options": [
+          {
+            "text": "即面接予約。チャンスは逃さない",
+            "scores": {"actionStyle": 2, "motivation": 2, "socialStyle": -1}
+          },
+          {
+            "text": "詳細に条件を比較検討してから判断",
+            "scores": {"thinking": 2, "actionStyle": -1}
+          },
+          {
+            "text": "今の会社に恩があるし、無視する",
+            "scores": {"socialStyle": 1, "motivation": -2, "actionStyle": -1}
+          },
+          {
+            "text": "とりあえず話だけ聞きに行く。情報収集は大事",
+            "scores": {"actionStyle": 1, "thinking": 1, "motivation": 1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "8b",
+          "question": "キャリアアップのために今すぐできることは？",
+          "tags": ["motivation", "vision", "strategic"],
+          "options": [
+            {
+              "text": "副業や起業準備を始める。複数の収入源が安心",
+              "scores": {"motivation": 2, "actionStyle": 2, "socialStyle": -1}
+            },
+            {
+              "text": "市場価値の高いスキルを計画的に習得する",
+              "scores": {"thinking": 2, "motivation": 2}
+            },
+            {
+              "text": "今の職場でまず実績を積む。土台が大事",
+              "scores": {"thinking": 1, "motivation": 1, "actionStyle": -1}
+            },
+            {
+              "text": "良い上司や先輩のそばで学ぶのが一番",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 7
+            }
+          }
+        },
+        {
+          "id": "8c",
+          "question": "今の職場に不満はないけど、なんとなく転職を考えている。何が理由？",
+          "tags": ["motivation", "values", "individual"],
+          "options": [
+            {
+              "text": "もっと上を目指したい。現状維持は後退だ",
+              "scores": {"motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "新しい環境で自分を試してみたい",
+              "scores": {"actionStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "今の人間関係に少し疲れてきた",
+              "scores": {"socialStyle": -1, "motivation": -1}
+            },
+            {
+              "text": "特に理由はない。このままでも十分",
+              "scores": {"motivation": -2, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 9,
+      "category": "mentoring",
+      "baseQuestion": {
+        "id": 9,
+        "question": "部下の育成を任された。あなたのスタイルは？",
+        "tags": ["social", "planning", "action"],
+        "options": [
+          {
+            "text": "「とりあえずやってみろ！」実践型教育",
+            "scores": {"actionStyle": 2, "thinking": -1}
+          },
+          {
+            "text": "詳細なマニュアルと研修計画を作成",
+            "scores": {"thinking": 2, "actionStyle": -1, "socialStyle": 1}
+          },
+          {
+            "text": "飲みに連れて行って、経験談を語る",
+            "scores": {"socialStyle": 2, "thinking": -2}
+          },
+          {
+            "text": "「資料送るから各自で勉強して」放置型",
+            "scores": {"socialStyle": -2, "motivation": -1, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "9b",
+          "question": "新入社員が同じミスを繰り返している。あなたのアプローチは？",
+          "tags": ["people", "logic", "planning"],
+          "options": [
+            {
+              "text": "一対一で時間を取って、なぜミスが起きるか一緒に考える",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "ミスを防ぐチェックリストとプロセスを作成する",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "「失敗から学べ」とあえて見守る。経験が一番の教師",
+              "scores": {"actionStyle": 1, "socialStyle": -1, "thinking": -1}
+            },
+            {
+              "text": "他の先輩社員に相談して、チームでサポート体制を作る",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 8
+            }
+          }
+        },
+        {
+          "id": "9c",
+          "question": "若手メンバーのモチベーションが下がっている。どう対処する？",
+          "tags": ["social", "people", "motivation"],
+          "options": [
+            {
+              "text": "一対一で話を聞いて、悩みを引き出す",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "明確な目標とインセンティブを設定する",
+              "scores": {"motivation": 2, "thinking": 1}
+            },
+            {
+              "text": "チームで盛り上がれるイベントを企画する",
+              "scores": {"socialStyle": 2, "motivation": 1, "thinking": -1}
+            },
+            {
+              "text": "本人の意志次第。あまり干渉しない",
+              "scores": {"socialStyle": -2, "motivation": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 10,
+      "category": "vacation_style",
+      "baseQuestion": {
+        "id": 10,
+        "question": "大型連休の過ごし方、理想は？",
+        "tags": ["action", "social", "balance"],
+        "options": [
+          {
+            "text": "海外旅行！アクティブに動き回る",
+            "scores": {"actionStyle": 2, "socialStyle": 1, "motivation": -1}
+          },
+          {
+            "text": "家でゴロゴロ。充電期間",
+            "scores": {"actionStyle": -2, "socialStyle": -2, "motivation": -1}
+          },
+          {
+            "text": "資格勉強や副業でスキルアップ",
+            "scores": {"motivation": 2, "socialStyle": -1, "thinking": 1}
+          },
+          {
+            "text": "仲間とBBQや旅行。思い出作り",
+            "scores": {"socialStyle": 2, "actionStyle": 1, "motivation": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "10b",
+          "question": "仕事のモードから完全に切り替えるために必要なのは？",
+          "tags": ["balance", "individual", "adaptive"],
+          "options": [
+            {
+              "text": "仕事と関係ない人たちとの時間。完全リセット",
+              "scores": {"socialStyle": 1, "motivation": -1, "actionStyle": 1}
+            },
+            {
+              "text": "一人でじっくり考える時間。内省が大事",
+              "scores": {"socialStyle": -2, "thinking": 1, "motivation": -1}
+            },
+            {
+              "text": "休日も少し仕事の勉強。ON/OFFの境界があいまい",
+              "scores": {"motivation": 2, "thinking": 1, "socialStyle": -1}
+            },
+            {
+              "text": "体を動かすこと。スポーツや運動でリフレッシュ",
+              "scores": {"actionStyle": 2, "motivation": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 9
+            }
+          }
+        },
+        {
+          "id": "10c",
+          "question": "プライベートで一番充実感を感じるのはどんな時？",
+          "tags": ["balance", "social", "motivation"],
+          "options": [
+            {
+              "text": "友人・家族と過ごす賑やかな時間",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "新しいことを学んで自分が成長した時",
+              "scores": {"motivation": 2, "thinking": 1}
+            },
+            {
+              "text": "没頭できる趣味の時間。一人の世界",
+              "scores": {"socialStyle": -2, "thinking": 1}
+            },
+            {
+              "text": "何もせず、ただ休息できた時",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 11,
+      "category": "presentation_prep",
+      "baseQuestion": {
+        "id": 11,
+        "question": "プレゼン前日、資料がまだ半分しかできてない。どうする？",
+        "tags": ["action", "planning", "social"],
+        "options": [
+          {
+            "text": "徹夜で完璧な資料を作り上げる",
+            "scores": {"thinking": 2, "motivation": 1, "actionStyle": 1}
+          },
+          {
+            "text": "資料は適当に、トークで乗り切る準備",
+            "scores": {"thinking": -2, "actionStyle": 1, "motivation": 1}
+          },
+          {
+            "text": "チームメンバーに泣きついて手伝ってもらう",
+            "scores": {"socialStyle": 2, "thinking": -1}
+          },
+          {
+            "text": "できる範囲で出す。評価は気にしない",
+            "scores": {"motivation": -2, "actionStyle": -1, "socialStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "11b",
+          "question": "大事な発表でうまくいかなかった。その後どうする？",
+          "tags": ["action", "logic", "planning"],
+          "options": [
+            {
+              "text": "何がいけなかったか徹底的に振り返って次に活かす",
+              "scores": {"thinking": 2, "motivation": 2}
+            },
+            {
+              "text": "切り替えが早い。次の成果で挽回するだけ",
+              "scores": {"actionStyle": 2, "motivation": 1, "thinking": -1}
+            },
+            {
+              "text": "信頼できる人に話を聞いてもらってモチベ回復",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "しばらく引きずる。でもそれがバネになる",
+              "scores": {"motivation": 1, "actionStyle": -1, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 10
+            }
+          }
+        },
+        {
+          "id": "11c",
+          "question": "人前で話すとき、あなたが一番意識することは？",
+          "tags": ["social", "action", "planning"],
+          "options": [
+            {
+              "text": "相手に届いているか、反応を常に確認する",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "論理的に、わかりやすく伝える構成",
+              "scores": {"thinking": 2, "actionStyle": -1}
+            },
+            {
+              "text": "とにかく熱量。気持ちが伝われば細かいことはいい",
+              "scores": {"actionStyle": 2, "thinking": -2}
+            },
+            {
+              "text": "特に意識しない。なるようになる",
+              "scores": {"motivation": -1, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 10
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 12,
+      "category": "tool_adoption",
+      "baseQuestion": {
+        "id": 12,
+        "question": "社内で新しいツール導入の話が。あなたの反応は？",
+        "tags": ["action", "planning", "social"],
+        "options": [
+          {
+            "text": "「面白そう！」すぐ試してみる",
+            "scores": {"actionStyle": 2, "thinking": -1}
+          },
+          {
+            "text": "費用対効果を検証してから判断すべき",
+            "scores": {"thinking": 2, "actionStyle": -2}
+          },
+          {
+            "text": "「また新しいの...覚えるの面倒」と消極的",
+            "scores": {"actionStyle": -2, "motivation": -1}
+          },
+          {
+            "text": "みんなの意見を聞いて、合意形成してから",
+            "scores": {"socialStyle": 2, "thinking": 1, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "12b",
+          "question": "あなたが新しい効率化ツールを発見。導入を提案したいが、チームは変化に消極的。どうする？",
+          "tags": ["action", "vision", "social"],
+          "options": [
+            {
+              "text": "まず自分で使って成果を見せ、それから提案する",
+              "scores": {"actionStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "導入のメリットをデータで示した提案書を作成",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "キーパーソンを個別に説得して、味方を増やす",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "無理に提案せず、いつか使いたい人が現れるのを待つ",
+              "scores": {"motivation": -2, "actionStyle": -2}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 11
+            }
+          }
+        },
+        {
+          "id": "12c",
+          "question": "職場のやり方が古くて非効率だと感じている。どうする？",
+          "tags": ["action", "thinking", "motivation"],
+          "options": [
+            {
+              "text": "自分から改善提案を積極的にする",
+              "scores": {"actionStyle": 2, "motivation": 2}
+            },
+            {
+              "text": "問題点を分析・文書化して、上司に提案する",
+              "scores": {"thinking": 2, "motivation": 1}
+            },
+            {
+              "text": "同僚に共感者を増やして、一緒に動く",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "自分だけ効率的なやり方を見つけて黙ってやる",
+              "scores": {"socialStyle": -1, "thinking": 1, "motivation": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 11
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 13,
+      "category": "stress_source",
+      "baseQuestion": {
+        "id": 13,
+        "question": "仕事で一番のストレスは？",
+        "tags": ["values", "social", "planning"],
+        "options": [
+          {
+            "text": "無駄な会議や非効率なプロセス",
+            "scores": {"thinking": 2, "socialStyle": -1}
+          },
+          {
+            "text": "人間関係やコミュニケーション",
+            "scores": {"socialStyle": -2, "motivation": -1}
+          },
+          {
+            "text": "成果が出ない・評価されないこと",
+            "scores": {"motivation": 2, "thinking": 1}
+          },
+          {
+            "text": "忙しすぎて自分の時間がないこと",
+            "scores": {"motivation": -2, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "13b",
+          "question": "チームの雰囲気が悪くなってきた。原因は何だと思う？",
+          "tags": ["social", "people", "harmony"],
+          "options": [
+            {
+              "text": "コミュニケーション不足。もっと話し合う場が必要",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "役割が不明確。責任の所在がはっきりしていない",
+              "scores": {"thinking": 2, "actionStyle": 1}
+            },
+            {
+              "text": "目標が共有されていない。みんなの向きがバラバラ",
+              "scores": {"motivation": 1, "thinking": 1, "socialStyle": 1}
+            },
+            {
+              "text": "特定の人の言動が問題。でも言いにくい",
+              "scores": {"socialStyle": -1, "motivation": -1, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 12
+            }
+          }
+        },
+        {
+          "id": "13c",
+          "question": "仕事でイライラを感じた時、あなたはどうする？",
+          "tags": ["action", "values", "social"],
+          "options": [
+            {
+              "text": "すぐに原因を特定して、解決に動く",
+              "scores": {"actionStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "一人で冷静になる時間を作る",
+              "scores": {"socialStyle": -1, "thinking": 1}
+            },
+            {
+              "text": "信頼できる同僚に話を聞いてもらう",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "とりあえず我慢する。感情は仕事に持ち込まない",
+              "scores": {"motivation": -1, "actionStyle": -1, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 12
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 14,
+      "category": "training_attitude",
+      "baseQuestion": {
+        "id": 14,
+        "question": "「明日から3日間、社内研修」と聞いて思うことは？",
+        "tags": ["social", "motivation", "action"],
+        "options": [
+          {
+            "text": "「ネットワーキングのチャンス！」",
+            "scores": {"socialStyle": 2, "motivation": 1}
+          },
+          {
+            "text": "「3日も仕事が進まない...」と憂鬱",
+            "scores": {"socialStyle": -1, "motivation": 1, "actionStyle": 1}
+          },
+          {
+            "text": "「新しいスキル習得できるかも」と期待",
+            "scores": {"thinking": 1, "motivation": 1, "socialStyle": -1}
+          },
+          {
+            "text": "「サボれるラッキー」と内心喜ぶ",
+            "scores": {"motivation": -2, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "14b",
+          "question": "自分の成長のために、今一番やりたいことは？",
+          "tags": ["motivation", "planning", "strategic"],
+          "options": [
+            {
+              "text": "専門スキルを極める。その道のエキスパートになる",
+              "scores": {"thinking": 2, "socialStyle": -1, "motivation": 2}
+            },
+            {
+              "text": "管理職・リーダーシップを学ぶ",
+              "scores": {"socialStyle": 1, "motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "幅広い経験を積む。ジェネラリストを目指す",
+              "scores": {"actionStyle": 1, "thinking": 1, "socialStyle": 1}
+            },
+            {
+              "text": "今のままで十分。無理に成長しなくていい",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 13
+            }
+          }
+        },
+        {
+          "id": "14c",
+          "question": "スキルアップのために時間とお金を投資するなら？",
+          "tags": ["motivation", "thinking", "individual"],
+          "options": [
+            {
+              "text": "稼げる・市場価値が上がる資格やスキル一択",
+              "scores": {"motivation": 2, "thinking": 1}
+            },
+            {
+              "text": "好きな分野を深く学ぶ。楽しさが大事",
+              "scores": {"motivation": 1, "thinking": 1, "socialStyle": -1}
+            },
+            {
+              "text": "コミュニティやネットワークへの参加",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "特に何もしない。今の仕事で十分学べている",
+              "scores": {"motivation": -2, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 13
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 15,
+      "category": "ideal_boss",
+      "baseQuestion": {
+        "id": 15,
+        "question": "理想の上司のタイプは？",
+        "tags": ["values", "social", "planning"],
+        "options": [
+          {
+            "text": "ビジョンを示してぐいぐい引っ張るリーダー",
+            "scores": {"motivation": 1, "actionStyle": 1, "socialStyle": 1}
+          },
+          {
+            "text": "裁量を与えて、放っておいてくれる人",
+            "scores": {"socialStyle": -2, "motivation": 1}
+          },
+          {
+            "text": "論理的で、きちんとフィードバックくれる人",
+            "scores": {"thinking": 2, "motivation": 1}
+          },
+          {
+            "text": "優しくて、無理させない人",
+            "scores": {"socialStyle": 1, "motivation": -2, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "15b",
+          "question": "あなたが上司なら、部下をどう評価したい？",
+          "tags": ["social", "logic", "planning"],
+          "options": [
+            {
+              "text": "結果で評価。プロセスは関係ない",
+              "scores": {"motivation": 2, "thinking": 1, "socialStyle": -1}
+            },
+            {
+              "text": "努力とプロセスも加味する。結果だけじゃない",
+              "scores": {"socialStyle": 1, "motivation": 1}
+            },
+            {
+              "text": "明確な評価基準を設けて公平に数値化する",
+              "scores": {"thinking": 2, "motivation": 1}
+            },
+            {
+              "text": "個人の事情を考慮した柔軟な評価をしたい",
+              "scores": {"socialStyle": 2, "motivation": -1, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 14
+            }
+          }
+        },
+        {
+          "id": "15c",
+          "question": "職場でのリーダーシップについて、あなたはどう思う？",
+          "tags": ["motivation", "social", "action"],
+          "options": [
+            {
+              "text": "リーダーは積極的に引っ張るべき。自分もそうしたい",
+              "scores": {"actionStyle": 2, "motivation": 2, "socialStyle": 1}
+            },
+            {
+              "text": "みんなが意見を言いやすい環境づくりが大事",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "実力があれば自然とついてくる。肩書きより成果",
+              "scores": {"motivation": 2, "thinking": 1, "socialStyle": -1}
+            },
+            {
+              "text": "リーダーはしんどそう。サポート役の方が向いている",
+              "scores": {"socialStyle": 1, "motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 14
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 16,
+      "category": "resignation_trigger",
+      "baseQuestion": {
+        "id": 16,
+        "question": "退職を考えるのはどんな時？",
+        "tags": ["motivation", "values", "social"],
+        "options": [
+          {
+            "text": "もっと成長できる環境があると感じた時",
+            "scores": {"motivation": 2, "actionStyle": 1}
+          },
+          {
+            "text": "人間関係が最悪になった時",
+            "scores": {"socialStyle": 1, "motivation": -1}
+          },
+          {
+            "text": "残業が多すぎて、生活が崩壊した時",
+            "scores": {"motivation": -2, "actionStyle": -1}
+          },
+          {
+            "text": "会社の方針や戦略に納得できなくなった時",
+            "scores": {"thinking": 2, "motivation": 1, "socialStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "16b",
+          "question": "今の仕事に不満があるとしたら、どれが一番近い？",
+          "tags": ["motivation", "values", "individual"],
+          "options": [
+            {
+              "text": "頑張っても給料や評価に反映されない",
+              "scores": {"motivation": 2, "actionStyle": 1, "thinking": 1}
+            },
+            {
+              "text": "やりたい仕事ができず、自分のスキルが活かせない",
+              "scores": {"motivation": 1, "thinking": 2, "socialStyle": -1}
+            },
+            {
+              "text": "チームや職場の雰囲気が合わない",
+              "scores": {"socialStyle": -1, "motivation": -1}
+            },
+            {
+              "text": "特に不満はない。安定していれば十分",
+              "scores": {"motivation": -2, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 15
+            }
+          }
+        },
+        {
+          "id": "16c",
+          "question": "職場環境で絶対に譲れない条件は？",
+          "tags": ["values", "motivation", "social"],
+          "options": [
+            {
+              "text": "成長できる環境と高い年収",
+              "scores": {"motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "良い人間関係と穏やかな職場",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "自分のペースで仕事ができる裁量",
+              "scores": {"socialStyle": -1, "motivation": 1, "thinking": 1}
+            },
+            {
+              "text": "残業なし・有休取得しやすい環境",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 15
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 17,
+      "category": "crisis_response",
+      "baseQuestion": {
+        "id": 17,
+        "question": "トラブル発生！クライアントから激怒の電話。どうする？",
+        "tags": ["action", "social", "planning"],
+        "options": [
+          {
+            "text": "すぐ謝罪に行く。スピード対応が命",
+            "scores": {"actionStyle": 2, "socialStyle": 1}
+          },
+          {
+            "text": "まず原因を調査して、対策を立ててから連絡",
+            "scores": {"thinking": 2, "actionStyle": -1}
+          },
+          {
+            "text": "上司に報告して、指示を仰ぐ",
+            "scores": {"actionStyle": -2, "motivation": -1, "socialStyle": 1}
+          },
+          {
+            "text": "チームで対応策を協議してから動く",
+            "scores": {"socialStyle": 2, "thinking": 1, "actionStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "17b",
+          "question": "自分のミスでプロジェクトに大きな遅延が発生。チームに迷惑をかけてしまった。どうする？",
+          "tags": ["action", "people", "responsibility"],
+          "options": [
+            {
+              "text": "すぐチームに謝罪し、リカバリープランを提示する",
+              "scores": {"actionStyle": 2, "socialStyle": 1, "thinking": 1}
+            },
+            {
+              "text": "徹夜してでも自分一人で取り戻す。これ以上迷惑はかけられない",
+              "scores": {"actionStyle": 2, "socialStyle": -1, "motivation": 1}
+            },
+            {
+              "text": "上司に正直に報告し、最善の対処法を一緒に考える",
+              "scores": {"socialStyle": 1, "thinking": 1, "actionStyle": -1}
+            },
+            {
+              "text": "チーム全体で状況を共有し、協力してリカバリーする",
+              "scores": {"socialStyle": 2, "thinking": 1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "socialStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 16
+            }
+          }
+        },
+        {
+          "id": "17c",
+          "question": "予期しないトラブルが発生した時、あなたの第一反応は？",
+          "tags": ["action", "thinking", "motivation"],
+          "options": [
+            {
+              "text": "頭が真っ白になるが、すぐ行動モードに切り替わる",
+              "scores": {"actionStyle": 2, "thinking": -1}
+            },
+            {
+              "text": "まず状況を冷静に把握。パニックにはならない",
+              "scores": {"thinking": 2, "actionStyle": -1}
+            },
+            {
+              "text": "周りに相談して、力を借りながら対処する",
+              "scores": {"socialStyle": 2, "actionStyle": -1}
+            },
+            {
+              "text": "かなり動揺する。立て直すまで時間がかかる",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 16
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 18,
+      "category": "side_business",
+      "baseQuestion": {
+        "id": 18,
+        "question": "「副業OK」になったらやりたいことは？",
+        "tags": ["motivation", "action", "planning"],
+        "options": [
+          {
+            "text": "すぐに起業・フリーランスの準備を始める",
+            "scores": {"actionStyle": 2, "motivation": 2, "socialStyle": -1}
+          },
+          {
+            "text": "市場調査して、儲かりそうな分野を見極める",
+            "scores": {"thinking": 2, "motivation": 2}
+          },
+          {
+            "text": "別にやらない。本業で十分",
+            "scores": {"motivation": -2, "actionStyle": -1}
+          },
+          {
+            "text": "友人と一緒に、楽しそうなことを始める",
+            "scores": {"socialStyle": 2, "thinking": -1, "actionStyle": 1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "18b",
+          "question": "10年後、理想の自分のキャリアは？",
+          "tags": ["motivation", "vision", "strategic"],
+          "options": [
+            {
+              "text": "自分の会社を持っているか、独立している",
+              "scores": {"motivation": 2, "actionStyle": 2, "socialStyle": -1}
+            },
+            {
+              "text": "業界で名の知れたスペシャリスト",
+              "scores": {"thinking": 2, "motivation": 2, "socialStyle": -1}
+            },
+            {
+              "text": "大きな組織のマネージャー・役員",
+              "scores": {"socialStyle": 1, "motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "今と変わらず安定している。それが一番",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 2, "direction": "positive" }
+              ],
+              "afterQuestion": 17
+            }
+          }
+        },
+        {
+          "id": "18c",
+          "question": "働き方について、あなたが最も共感するのは？",
+          "tags": ["motivation", "values", "balance"],
+          "options": [
+            {
+              "text": "稼ぐために働く。収入は多いほど良い",
+              "scores": {"motivation": 2, "actionStyle": 1}
+            },
+            {
+              "text": "やりがいや使命感があってこそ働ける",
+              "scores": {"motivation": 1, "thinking": 1}
+            },
+            {
+              "text": "人と一緒に何かを作り上げることが楽しい",
+              "scores": {"socialStyle": 2, "motivation": -1}
+            },
+            {
+              "text": "プライベートを充実させるための手段として働く",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "negative" }
+              ],
+              "afterQuestion": 17
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 19,
+      "category": "core_value",
+      "baseQuestion": {
+        "id": 19,
+        "question": "あなたが仕事で一番大事にしていることは？",
+        "tags": ["values", "social", "planning"],
+        "options": [
+          {
+            "text": "結果・成果を出すこと",
+            "scores": {"motivation": 2, "thinking": 1}
+          },
+          {
+            "text": "チームワークと人間関係",
+            "scores": {"socialStyle": 2, "motivation": -1}
+          },
+          {
+            "text": "効率と論理性",
+            "scores": {"thinking": 2, "socialStyle": -1}
+          },
+          {
+            "text": "ワークライフバランス",
+            "scores": {"motivation": -2, "actionStyle": -1, "socialStyle": -1}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "19b",
+          "question": "仕事を通じて社会に何を残したい？",
+          "tags": ["values", "vision", "people"],
+          "options": [
+            {
+              "text": "業界を変えるようなイノベーション",
+              "scores": {"motivation": 2, "actionStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "関わった人たちの人生を豊かにすること",
+              "scores": {"socialStyle": 2, "motivation": 1, "thinking": -1}
+            },
+            {
+              "text": "自分の専門分野での知識・技術の蓄積",
+              "scores": {"thinking": 2, "socialStyle": -1, "motivation": 1}
+            },
+            {
+              "text": "特に何も残さなくていい。自分が楽しければいい",
+              "scores": {"motivation": -1, "socialStyle": -1, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 2, "direction": "positive" }
+              ],
+              "afterQuestion": 18
+            }
+          }
+        },
+        {
+          "id": "19c",
+          "question": "「仕事が楽しい」と感じる瞬間はどれ？",
+          "tags": ["values", "motivation", "social"],
+          "options": [
+            {
+              "text": "難しい課題をクリアした時の達成感",
+              "scores": {"motivation": 2, "thinking": 1}
+            },
+            {
+              "text": "チームと一緒にやり遂げた時の一体感",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "自分のアイデアが形になった時",
+              "scores": {"actionStyle": 2, "thinking": 1}
+            },
+            {
+              "text": "正直あまりない。仕事は仕事",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "thinking", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 18
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slotId": 20,
+      "category": "lottery_scenario",
+      "baseQuestion": {
+        "id": 20,
+        "question": "宝くじで1億円当たったら、仕事は？",
+        "tags": ["motivation", "action", "values"],
+        "options": [
+          {
+            "text": "即退職。人生自由に生きる",
+            "scores": {"motivation": -2, "actionStyle": 1, "socialStyle": -1}
+          },
+          {
+            "text": "起業資金にして、夢を追いかける",
+            "scores": {"motivation": 2, "actionStyle": 2, "socialStyle": -1}
+          },
+          {
+            "text": "続ける。仕事は生きがいだから",
+            "scores": {"motivation": 1, "socialStyle": 1}
+          },
+          {
+            "text": "貯金して、とりあえず今のまま。安定が大事",
+            "scores": {"thinking": 2, "motivation": -1, "actionStyle": -2}
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "20b",
+          "question": "あなたにとって「理想の仕事」を一言で表すなら？",
+          "tags": ["values", "motivation", "flexible"],
+          "options": [
+            {
+              "text": "自分の力で世界を動かせる仕事",
+              "scores": {"motivation": 2, "actionStyle": 2, "socialStyle": -1}
+            },
+            {
+              "text": "人の役に立てて、感謝される仕事",
+              "scores": {"socialStyle": 2, "motivation": 1, "thinking": -1}
+            },
+            {
+              "text": "自分の頭を使い続けられる知的な仕事",
+              "scores": {"thinking": 2, "motivation": 1, "socialStyle": -1}
+            },
+            {
+              "text": "安定していて、毎日穏やかでいられる仕事",
+              "scores": {"motivation": -2, "actionStyle": -1, "thinking": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "actionStyle", "threshold": 2, "direction": "positive" }
+              ],
+              "afterQuestion": 19
+            }
+          }
+        },
+        {
+          "id": "20c",
+          "question": "キャリアを振り返った時、どんな人生だったと言いたい？",
+          "tags": ["values", "motivation", "vision"],
+          "options": [
+            {
+              "text": "「挑戦し続けた人生だった」",
+              "scores": {"actionStyle": 2, "motivation": 2}
+            },
+            {
+              "text": "「たくさんの人に支えられ、貢献できた」",
+              "scores": {"socialStyle": 2, "motivation": 1}
+            },
+            {
+              "text": "「自分の専門を極めた、唯一無二の存在だった」",
+              "scores": {"thinking": 2, "motivation": 1, "socialStyle": -1}
+            },
+            {
+              "text": "「無理せず、自分らしく生きた」",
+              "scores": {"motivation": -2, "actionStyle": -1}
+            }
+          ],
+          "conditions": {
+            "preferredWhen": {
+              "scorePatterns": [
+                { "axis": "motivation", "threshold": 1, "direction": "positive" }
+              ],
+              "afterQuestion": 19
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

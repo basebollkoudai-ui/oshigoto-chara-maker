@@ -32,9 +32,35 @@ export interface QuestionOption {
 }
 
 export interface Question {
-  id: number;
+  id: number | string;
   question: string;
   options: QuestionOption[];
+  tags?: string[];
+}
+
+export interface ScorePattern {
+  axis: keyof Scores;
+  threshold: number;
+  direction: 'positive' | 'negative';
+}
+
+export interface QuestionConditions {
+  preferredWhen?: {
+    mbtiTypes?: string[];
+    scorePatterns?: ScorePattern[];
+    afterQuestion?: number;
+  };
+}
+
+export interface QuestionVariant extends Question {
+  conditions?: QuestionConditions;
+}
+
+export interface QuestionSlot {
+  slotId: number;
+  category: string;
+  baseQuestion: Question;
+  variants?: QuestionVariant[];
 }
 
 export interface Scores {
@@ -76,6 +102,16 @@ export interface QuizData {
     };
   };
   questions: Question[];
+}
+
+export interface BranchingQuizData {
+  axes: QuizData['axes'];
+  questionSlots: QuestionSlot[];
+  branchingRules: {
+    mbtiInfluence: Record<string, { preferTags: string[]; weight: number }>;
+    scoreThresholds: { early: number; mid: number; late: number };
+  };
+  axisBalance: Record<keyof Scores, { min: number; max: number; target: number }>;
 }
 
 export interface CharactersData {

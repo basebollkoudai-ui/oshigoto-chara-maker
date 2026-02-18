@@ -19,8 +19,8 @@ export async function GET(req: NextRequest) {
             flexDirection: 'column',
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            padding: '60px',
+            background: 'linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #60a5fa 100%)',
+            padding: '28px 36px',
             fontFamily: 'sans-serif',
             position: 'relative',
           }}
@@ -30,25 +30,19 @@ export async function GET(req: NextRequest) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: '40px',
+              marginBottom: '16px',
             }}
           >
+            <div style={{ fontSize: '32px', marginRight: '12px' }}>🔥</div>
             <div
               style={{
-                fontSize: '48px',
-                marginRight: '20px',
-              }}
-            >
-              🔥
-            </div>
-            <div
-              style={{
-                fontSize: '36px',
+                fontSize: '28px',
                 fontWeight: 'bold',
                 color: 'white',
+                textShadow: '0 2px 4px rgba(0,0,0,0.2)',
               }}
             >
-              仕事モンスター診断
+              ワークモンスター診断
             </div>
           </div>
 
@@ -60,9 +54,10 @@ export async function GET(req: NextRequest) {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              background: 'rgba(255, 255, 255, 0.95)',
-              borderRadius: '32px',
-              padding: '60px',
+              background: 'rgba(255, 255, 255, 0.97)',
+              borderRadius: '24px',
+              padding: '32px 48px',
+              gap: '12px',
             }}
           >
             {/* Character Icon */}
@@ -71,12 +66,11 @@ export async function GET(req: NextRequest) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '180px',
-                height: '180px',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                borderRadius: '90px',
-                marginBottom: '40px',
-                fontSize: '96px',
+                width: '130px',
+                height: '130px',
+                background: 'linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #60a5fa 100%)',
+                borderRadius: '65px',
+                fontSize: '72px',
               }}
             >
               {icon}
@@ -86,15 +80,14 @@ export async function GET(req: NextRequest) {
             <div
               style={{
                 display: 'flex',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px 32px',
-                borderRadius: '24px',
-                marginBottom: '24px',
+                background: 'linear-gradient(135deg, #f472b6 0%, #a855f7 100%)',
+                padding: '8px 28px',
+                borderRadius: '20px',
               }}
             >
               <span
                 style={{
-                  fontSize: '32px',
+                  fontSize: '26px',
                   fontWeight: 'bold',
                   color: 'white',
                   letterSpacing: '4px',
@@ -107,11 +100,11 @@ export async function GET(req: NextRequest) {
             {/* Character Name */}
             <div
               style={{
-                fontSize: '72px',
+                fontSize: '64px',
                 fontWeight: 'bold',
-                color: '#667eea',
-                marginBottom: '20px',
+                color: '#7c3aed',
                 textAlign: 'center',
+                lineHeight: 1.1,
               }}
             >
               {characterName}
@@ -120,10 +113,11 @@ export async function GET(req: NextRequest) {
             {/* Subtitle */}
             <div
               style={{
-                fontSize: '32px',
-                color: '#666',
+                fontSize: '28px',
+                color: '#555',
                 textAlign: 'center',
                 maxWidth: '800px',
+                lineHeight: 1.4,
               }}
             >
               {subtitle}
@@ -135,9 +129,9 @@ export async function GET(req: NextRequest) {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginTop: '40px',
-              fontSize: '24px',
-              color: 'rgba(255, 255, 255, 0.9)',
+              marginTop: '14px',
+              fontSize: '20px',
+              color: 'rgba(255, 255, 255, 0.95)',
             }}
           >
             建前はもういい。本音で答えろ。

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { M_PLUS_Rounded_1c, Noto_Sans_JP } from 'next/font/google'
 import './globals.css'
+import Footer from '@/components/Footer'
 
 const mPlusRounded = M_PLUS_Rounded_1c({
   weight: ['400', '500', '700', '800'],
@@ -56,8 +57,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={`${mPlusRounded.variable} ${notoSansJP.variable} font-noto`}>
+      <body className={`${mPlusRounded.variable} ${notoSansJP.variable} font-noto flex flex-col min-h-screen`}>
         {children}
+        <Footer />
       </body>
     </html>
   )
