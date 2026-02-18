@@ -1,10 +1,8 @@
 import type {
   Question,
   QuestionSlot,
-  QuestionVariant,
   Scores,
   BranchingQuizData,
-  ScorePattern,
   AnswerHistory,
 } from '@/types/quiz'
 
@@ -16,199 +14,6 @@ interface SelectionContext {
   answerHistory: AnswerHistory[]
 }
 
-interface AxisTracker {
-  current: number
-  target: number
-  remaining: number
-  needed: number
-  priority: number
-}
-
-/**
- * Extract MBTI letters for matching
- */
-function getMBTILetters(mbti: string | null): string[] {
-  if (!mbti || mbti.length !== 4) return []
-  return mbti.split('')
-}
-
-/**
- * Check if score pattern matches current scores
- */
-function matchesScorePattern(
-  pattern: ScorePattern,
-  scores: Scores
-): boolean {
-  const scoreValue = scores[pattern.axis]
-  if (pattern.direction === 'positive') {
-    return scoreValue >= pattern.threshold
-  } else {
-    return scoreValue <= -pattern.threshold
-  }
-}
-
-/**
- * Calculate how well a variant matches current context
- */
-function calculateVariantScore(
-  variant: QuestionVariant,
-  context: SelectionContext,
-  quizData: BranchingQuizData
-): number {
-  if (!variant.conditions?.preferredWhen) {
-    return 0
-  }
-
-  let score = 0
-  const { preferredWhen } = variant.conditions
-  const { mbtiInfluence } = quizData.branchingRules
-
-  // Check if we're past the required question number (hard gate)
-  if (preferredWhen.afterQuestion && context.questionNumber <= preferredWhen.afterQuestion) {
-    return 0 // Don't use this variant yet
-  }
-
-  // Check MBTI match
-  if (preferredWhen.mbtiTypes && preferredWhen.mbtiTypes.length > 0) {
-    if (context.mbtiType) {
-      const mbtiMatch = preferredWhen.mbtiTypes.includes(context.mbtiType)
-      if (mbtiMatch) {
-        score += 50 // High weight for MBTI match
-      }
-      // Partial letter match bonus
-      const mbtiLetters = getMBTILetters(context.mbtiType)
-      preferredWhen.mbtiTypes.forEach((mbti) => {
-        const targetLetters = getMBTILetters(mbti)
-        const matchCount = mbtiLetters.filter((l) => targetLetters.includes(l)).length
-        score += matchCount * 5
-      })
-    }
-    // No MBTI selected: give partial score to allow variant to surface via score patterns
-    if (!context.mbtiType) {
-      score += 10
-    }
-  } else {
-    // No MBTI constraint: score not blocked by missing MBTI
-    score += 10
-  }
-
-  // Check MBTI letter-based tag preferences
-  if (context.mbtiType && variant.tags) {
-    const mbtiLetters = getMBTILetters(context.mbtiType)
-    mbtiLetters.forEach((letter) => {
-      const influence = mbtiInfluence[letter]
-      if (influence) {
-        const tagMatches = variant.tags!.filter((tag) =>
-          influence.preferTags.includes(tag)
-        ).length
-        score += tagMatches * influence.weight * 10
-      }
-    })
-  }
-
-  // Check score patterns
-  if (preferredWhen.scorePatterns) {
-    const matchingPatterns = preferredWhen.scorePatterns.filter((pattern) =>
-      matchesScorePattern(pattern, context.currentScores)
-    )
-    score += matchingPatterns.length * 20
-  }
-
-  return score
-}
-
-/**
- * Select best question variant for current slot
- */
-function selectQuestionFromSlot(
-  slot: QuestionSlot,
-  context: SelectionContext,
-  quizData: BranchingQuizData
-): Question {
-  // If no variants or very early in quiz, use base question
-  if (!slot.variants || slot.variants.length === 0 || context.questionNumber <= 3) {
-    return slot.baseQuestion
-  }
-
-  // Calculate scores for each variant
-  const variantScores = slot.variants.map((variant) => ({
-    variant,
-    score: calculateVariantScore(variant, context, quizData),
-  }))
-
-  // Find highest scoring variant
-  const bestVariant = variantScores.reduce(
-    (best, current) => (current.score > best.score ? current : best),
-    { variant: slot.baseQuestion as Question, score: 0 }
-  )
-
-  // Lower threshold: use variant if it has any meaningful signal (score > 5)
-  return bestVariant.score > 5 ? bestVariant.variant : slot.baseQuestion
-}
-
-/**
- * Update axis tracking after each question
- * Counts how many questions cover each axis
- */
-function updateAxisPriorities(
-  answeredQuestions: number,
-  selectedQuestions: Question[],
-  axisBalance: BranchingQuizData['axisBalance']
-): Record<keyof Scores, AxisTracker> {
-  const remainingQuestions = 20 - answeredQuestions
-  const axes: (keyof Scores)[] = ['actionStyle', 'socialStyle', 'motivation', 'thinking']
-
-  const trackers: Record<string, AxisTracker> = {}
-
-  axes.forEach((axis) => {
-    // Count how many questions cover this axis (one count per question, not per option)
-    let current = 0
-    selectedQuestions.forEach((q) => {
-      const hasAxis = q.options.some(
-        (opt) => opt.scores[axis] !== undefined && opt.scores[axis] !== 0
-      )
-      if (hasAxis) current++
-    })
-
-    const target = axisBalance[axis].target
-    const needed = Math.max(0, target - current)
-    const priority = remainingQuestions > 0 ? needed / remainingQuestions : 0
-
-    trackers[axis] = {
-      current,
-      target,
-      remaining: remainingQuestions,
-      needed,
-      priority,
-    }
-  })
-
-  return trackers
-}
-
-/**
- * Check if a question covers high-priority axes
- */
-function questionCoversNeededAxes(
-  question: Question,
-  axisPriorities: Record<keyof Scores, AxisTracker>
-): number {
-  let coverageScore = 0
-  const axes: (keyof Scores)[] = ['actionStyle', 'socialStyle', 'motivation', 'thinking']
-
-  axes.forEach((axis) => {
-    const hasAxis = question.options.some(
-      (opt) => opt.scores[axis] !== undefined && opt.scores[axis] !== 0
-    )
-    if (hasAxis) {
-      const priority = axisPriorities[axis]?.priority || 0
-      coverageScore += priority * 10
-    }
-  })
-
-  return coverageScore
-}
-
 /**
  * Get initial questions (first 3 are always base questions)
  */
@@ -217,7 +22,11 @@ export function getInitialQuestions(quizData: BranchingQuizData): Question[] {
 }
 
 /**
- * Select next question based on current context
+ * Select next question based on current scores.
+ * Simple rule: pick variant-b if socialStyle > 0 or motivation > 0,
+ * pick variant-c if actionStyle < 0 or thinking > 0,
+ * otherwise use baseQuestion.
+ * This ensures branching always happens based on accumulated scores.
  */
 export function selectNextQuestion(
   context: SelectionContext,
@@ -231,40 +40,94 @@ export function selectNextQuestion(
 
   const slot = quizData.questionSlots[slotIndex]
 
-  // Get base selection from slot
-  const selectedQuestion = selectQuestionFromSlot(slot, context, quizData)
+  // No variants available or too early
+  if (!slot.variants || slot.variants.length === 0 || context.questionNumber <= 3) {
+    return slot.baseQuestion
+  }
 
-  // Check axis balance for mid-to-late questions
-  if (context.questionNumber >= 10) {
-    const axisPriorities = updateAxisPriorities(
-      context.answeredQuestions.length,
-      context.answeredQuestions,
-      quizData.axisBalance
-    )
+  const { currentScores } = context
 
-    // If selected question doesn't cover needed axes well, try variants
-    const currentCoverage = questionCoversNeededAxes(selectedQuestion, axisPriorities)
+  // Determine dominant axis directions from accumulated scores
+  const isHighAction = currentScores.actionStyle >= 1
+  const isLowAction = currentScores.actionStyle <= -1
+  const isHighSocial = currentScores.socialStyle >= 1
+  const isLowSocial = currentScores.socialStyle <= -1
+  const isHighMotivation = currentScores.motivation >= 1
+  const isLowMotivation = currentScores.motivation <= -1
+  const isHighThinking = currentScores.thinking >= 1
 
-    if (slot.variants && slot.variants.length > 0) {
-      // Check if any variant has better axis coverage
-      const variantsWithCoverage = [slot.baseQuestion, ...slot.variants].map((q) => ({
-        question: q,
-        coverage: questionCoversNeededAxes(q, axisPriorities),
-      }))
+  // Score each variant based on how well conditions match
+  const scoredVariants = slot.variants.map((variant, index) => {
+    let matchScore = 0
+    const preferredWhen = variant.conditions?.preferredWhen
+    if (!preferredWhen) return { variant, matchScore: 0, index }
 
-      const bestCoverage = variantsWithCoverage.reduce((best, current) =>
-        current.coverage > best.coverage ? current : best
-      )
-
-      // If we need axis balance more than personalization, use best coverage
-      const highestPriority = Math.max(...Object.values(axisPriorities).map((t) => t.priority))
-      if (highestPriority > 1.5 && bestCoverage.coverage > currentCoverage) {
-        return bestCoverage.question
+    // Check score patterns
+    if (preferredWhen.scorePatterns) {
+      for (const pattern of preferredWhen.scorePatterns) {
+        const axisScore = currentScores[pattern.axis as keyof Scores]
+        if (pattern.direction === 'positive' && axisScore >= pattern.threshold) {
+          matchScore += 20
+        } else if (pattern.direction === 'negative' && axisScore <= -pattern.threshold) {
+          matchScore += 20
+        }
       }
+    }
+
+    // Bonus for social-type variants when user is social
+    if (variant.tags?.includes('social') || variant.tags?.includes('people')) {
+      if (isHighSocial) matchScore += 10
+      if (isLowSocial) matchScore -= 5
+    }
+
+    // Bonus for individual-type variants when user is solo
+    if (variant.tags?.includes('individual') || variant.tags?.includes('focus')) {
+      if (isLowSocial) matchScore += 10
+      if (isHighSocial) matchScore -= 5
+    }
+
+    // Bonus for motivation variants
+    if (variant.tags?.includes('vision') || variant.tags?.includes('strategic')) {
+      if (isHighMotivation) matchScore += 10
+    }
+
+    // Bonus for balance/values variants for low motivation users
+    if (variant.tags?.includes('balance') || variant.tags?.includes('harmony')) {
+      if (isLowMotivation) matchScore += 10
+    }
+
+    return { variant, matchScore, index }
+  })
+
+  // Pick the highest scoring variant
+  const best = scoredVariants.reduce((a, b) => (b.matchScore > a.matchScore ? b : a))
+
+  // Use variant if it has any positive match, otherwise use base
+  if (best.matchScore > 0) {
+    console.log(
+      `[Q${context.questionNumber}] Using variant "${best.variant.id}" (score=${best.matchScore}) | scores:`,
+      currentScores
+    )
+    return best.variant
+  }
+
+  // Fallback: alternate between base and variants based on question number parity
+  // This ensures variety even when scores are neutral
+  const variantCount = slot.variants.length
+  if (variantCount > 0) {
+    // Use slot index to pick different variants for variety
+    const pick = slotIndex % (variantCount + 1)
+    if (pick > 0) {
+      const pickedVariant = slot.variants[pick - 1]
+      console.log(
+        `[Q${context.questionNumber}] Fallback variant "${pickedVariant.id}" | scores:`,
+        currentScores
+      )
+      return pickedVariant
     }
   }
 
-  return selectedQuestion
+  return slot.baseQuestion
 }
 
 /**

@@ -612,7 +612,11 @@ const Result = ({ scores, answerHistory, mbtiType }: ResultProps) => {
                   <span className="text-2xl font-bold">×</span>
                   <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                     <Image
-                      src={`/characters/${imageMap[compatibilityResult.partnerCode] || 'character-01.png'}`}
+                      src={`/characters/${
+                        imageMap[compatibilityResult.partnerCode] ||
+                        imageMap[partnerCode.trim().toUpperCase().split('-')[0]] ||
+                        `character-01.png`
+                      }`}
                       alt={compatibilityResult.partnerName}
                       width={96}
                       height={96}
